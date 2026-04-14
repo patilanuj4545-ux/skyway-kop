@@ -22,4 +22,21 @@ A web-based flight booking system developed as a BCA final year project.
 ## 👨‍💻 Developed By
 Anuj Patil,
 Srutika Sawant,
-Vaishnavi Amble
+Vaishnavi Amble.
+
+## 📸 Project Screenshots
+
+### 🏠 Home Page
+![Home](home.png)
+
+### ✈️ Booking Page
+![Booking](booking.png)
+
+### 🎫 Boarding Pass
+![Boarding](boarding.png)
+
+### 📊 Admin Dashboard
+![Admin](admin.png)
+
+### 🔐 Login Page
+![Login](login.png)
