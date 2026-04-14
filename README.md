@@ -27,7 +27,7 @@ Vaishnavi Amble.
 ## 📸 Project Screenshots
 
 ![Home Page](home.png)
-![Booking Page](booking.png)
+![Booking Page](Booking.png)
 ![Biometric Verification](Biometic.png)
 ![Boarding Pass](Boarding.png)
 ![Admin Dashboard](Admin.png)
