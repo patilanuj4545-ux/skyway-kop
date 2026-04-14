@@ -26,16 +26,19 @@ Vaishnavi Amble.
 
 ## 📸 Project Screenshots
 
-### 🏠 Home 
-![Home](home.png)
+### 🏠 Home Page
+![Home Page](home.png)
 
-### ✈️ Booking 
-![Booking](booking.png)
+### ✈️ Flight Booking Page
+![Booking Page](booking.png)
 
-### 🎫 Boarding 
-![Boarding](boarding.png)
+### 🎫 Boarding Pass
+![Boarding Pass](boarding.png)
 
-### 📊 Admin 
-![Admin](admin.png)
+### 📊 Admin Dashboard
+![Admin Dashboard](admin.png)
+
+### 🔐 Biometric Verification
+![Biometric Verification](biometric.png)
 
 
