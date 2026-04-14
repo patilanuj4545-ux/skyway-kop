@@ -28,7 +28,7 @@ Vaishnavi Amble.
 
 ![Home Page](home.png)
 ![Booking Page](booking.png)
+![Biometric Verification](Biometic.png)
 ![Boarding Pass](Boarding.png)
 ![Admin Dashboard](Admin.png)
-![Biometric Verification](Biometic.png)
 
