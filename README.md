@@ -30,13 +30,13 @@ Vaishnavi Amble.
 ![Home](home.png)
 
 ### ✈️ Booking Page
-![Booking](flight booking.png)
+![Booking](booking.png)
 
 ### 🎫 Boarding Pass
-![Boarding](Boarding pass.png)
+![Boarding](boarding.png)
 
 ### 📊 Admin Dashboard
-![Admin](Admin panel.png)
+![Admin](admin.png)
 
-### 🔐 Biometric Verification
-![Biometric](Biometic verification.png)
+### 🔐 Login Page
+![Login](login.png)
