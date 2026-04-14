@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkyWay — Chhatrapati Rajaram Maharaj Airport, Kolhapur</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/shared.css">
+<link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+
+<!-- ========== SITE HEADER ========== -->
+<header class="site-header">
+  <a class="logo-wrap" href="index.html">
+    <div class="logo-ico"><i class="fa-solid fa-plane-departure"></i></div>
+    <div>
+      <div class="logo-main">SkyWay ✈ KOP</div>
+      <div class="logo-sub">Kolhapur Airport</div>
+    </div>
+  </a>
+  <nav class="h-nav">
+    <a class="hn active" href="index.html">Home</a>
+    <a class="hn" href="search.html">Search</a>
+    <a class="hn" href="deals.html">View Deals</a>
+  </nav>
+  <div id="authArea"></div>
+</header>
+
+<!-- ========== HERO ========== -->
+<section class="home-hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-orb hero-orb-3"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-particles"></div>
+  <div class="hero-plane">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/A319_vueling_ec-hha_arp.jpg/320px-A319_vueling_ec-hha_arp.jpg" alt="plane" onerror="this.style.display='none'">
+  </div>
+  <div class="hero-body">
+    <div class="apt-badge">✈ KOP · Kolhapur · India</div>
+    <h1 class="hero-title">Connect The<br><span>World Digitally</span></h1>
+    <div class="hero-apt-en">Chhatrapati Rajaram Maharaj Airport</div>
+    <div class="hero-apt-mr">छत्रपती राजाराम महाराज विमानतळ, कोल्हापूर-४१६०१२</div>
+    <div class="hero-actions">
+      <a class="btn-hp" href="search.html"><i class="fa-solid fa-magnifying-glass"></i> Search Flights</a>
+      <a class="btn-hs" href="deals.html"><i class="fa-solid fa-tags"></i> View Deals</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <i class="fa-solid fa-chevron-down" style="color:rgba(255,255,255,.4);"></i>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ========== LIVE FLIGHT STRIP ========== -->
+<div class="live-strip">
+  <div class="ls-inner" id="lsTicker">
+    <span class="lsi">✈ S5-224 Kolhapur→Mumbai <span class="on">On Time</span> 06:15</span>
+    <span class="lsi">✈ 6E-6312 Kolhapur→Hyderabad <span class="on">On Time</span> 06:30</span>
+    <span class="lsi">✈ 6E-6201 Kolhapur→Navi Mumbai <span class="on">On Time</span> 06:00</span>
+    <span class="lsi">✈ S5-316 Kolhapur→Nagpur <span class="dl">Delayed 10min</span> 08:10</span>
+    <span class="lsi">✈ 6E-6414 Kolhapur→Bengaluru <span class="on">On Time</span> 07:15</span>
+    <span class="lsi">✈ S5-610 Kolhapur→Ahmednagar <span class="on">On Time</span> 10:45</span>
+    <span class="lsi">✈ S5-226 Kolhapur→Mumbai <span class="on">On Time</span> 09:30</span>
+    <span class="lsi">✈ 6E-6314 Kolhapur→Hyderabad <span class="dl">Delayed 5min</span> 10:05</span>
+    <span class="lsi">✈ S5-224 Kolhapur→Mumbai <span class="on">On Time</span> 06:15</span>
+    <span class="lsi">✈ 6E-6312 Kolhapur→Hyderabad <span class="on">On Time</span> 06:30</span>
+    <span class="lsi">✈ 6E-6201 Kolhapur→Navi Mumbai <span class="on">On Time</span> 06:00</span>
+    <span class="lsi">✈ S5-316 Kolhapur→Nagpur <span class="dl">Delayed 10min</span> 08:10</span>
+    <span class="lsi">✈ 6E-6414 Kolhapur→Bengaluru <span class="on">On Time</span> 07:15</span>
+    <span class="lsi">✈ S5-610 Kolhapur→Ahmednagar <span class="on">On Time</span> 10:45</span>
+  </div>
+</div>
+
+<!-- ========== SEASONAL OFFERS ========== -->
+<section class="hs hw">
+  <div class="sh">
+    <div class="sh-tag"><i class="fa-solid fa-fire"></i> Live Deals</div>
+    <h2 class="sh-title">Seasonal Offers from Kolhapur</h2>
+    <p class="sh-sub">Best fares handpicked for you. Click any destination to book instantly.</p>
+  </div>
+  <div class="so-grid" id="offersGrid"></div>
+</section>
+
+<!-- ========== FAQ / WHATS NEW ========== -->
+<section class="hs hw">
+  <div class="sh">
+    <div class="sh-tag"><i class="fa-solid fa-sparkles"></i> Latest Updates</div>
+    <h2 class="sh-title">What's New at Kolhapur Airport</h2>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item open">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-qt">🆕 IndiGo launches Navi Mumbai route from Mar 29, 2026</span>
+        <i class="fa-solid fa-chevron-down faq-ic"></i>
+      </div>
+      <div class="faq-a" style="display:block;">IndiGo (6E) will begin daily flights from Kolhapur (KOP) to Navi Mumbai from March 29, 2026. Introductory fares start at ₹1,699. Flight 6E-6201 departs 06:00, arrives 07:10.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-qt">⭐ Star Air adds evening slots from March 2, 2026</span>
+        <i class="fa-solid fa-chevron-down faq-ic"></i>
+      </div>
+      <div class="faq-a">Star Air (S5) has introduced evening departure slots to Mumbai and Bengaluru. New 18:30 Kolhapur→Mumbai flight (S5-228) now available. Book early for best fares.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-qt">🏗 Runway expansion to 2,300m underway</span>
+        <i class="fa-solid fa-chevron-down faq-ic"></i>
+      </div>
+      <div class="faq-a">The Kolhapur airport runway is being extended to 2,300 meters. This will allow larger aircraft operations and open the airport to new airlines and routes by late 2026.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-qt">🎫 Up to 50% discount on online bookings</span>
+        <i class="fa-solid fa-chevron-down faq-ic"></i>
+      </div>
+      <div class="faq-a">Book through SkyWay portal and get up to 50% off on select routes. Use promo code KOLHAPUR10 for extra 10% off. Valid for bookings made 15+ days in advance.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-qt">⚠️ PNR Security Advisory for Passengers</span>
+        <i class="fa-solid fa-chevron-down faq-ic"></i>
+      </div>
+      <div class="faq-a">Never share your PNR number and last name publicly. Fraudsters may use this to access your booking. If you suspect misuse, contact your airline's customer care immediately.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== WHY CHOOSE US (2 rows × 3 cards) ========== -->
+<section class="hs hw">
+  <div class="sh">
+    <div class="sh-tag"><i class="fa-solid fa-star"></i> Why Choose Us</div>
+    <h2 class="sh-title">Your Trusted Travel Partner</h2>
+  </div>
+  <div class="wc-grid wc-grid-2x3">
+    <div class="wc-card"><div class="wc-ico"><i class="fa-solid fa-magnifying-glass-dollar"></i></div><div class="wc-title">Smart Search</div><div class="wc-desc">Real-time fare comparison across all Kolhapur flights with smart filters.</div></div>
+    <div class="wc-card"><div class="wc-ico"><i class="fa-solid fa-bolt"></i></div><div class="wc-title">Easy Booking</div><div class="wc-desc">Book in under 3 minutes with our streamlined 5-step booking process.</div></div>
+    <div class="wc-card"><div class="wc-ico"><i class="fa-solid fa-shield-halved"></i></div><div class="wc-title">Secure Payment</div><div class="wc-desc">256-bit SSL encryption. PCI DSS compliant. Pay via UPI, Card or Wallet.</div></div>
+    <div class="wc-card"><div class="wc-ico"><i class="fa-solid fa-headset"></i></div><div class="wc-title">24/7 Support</div><div class="wc-desc">SkyWay AI assistant Deal is available round the clock to help you.</div></div>
+    <div class="wc-card"><div class="wc-ico"><i class="fa-solid fa-rotate-left"></i></div><div class="wc-title">Easy Cancellation</div><div class="wc-desc">Flexible cancellation with refund in 5–7 business days. No hidden fees.</div></div>
+    <div class="wc-card"><div class="wc-ico"><i class="fa-solid fa-qrcode"></i></div><div class="wc-title">Digital Pass</div><div class="wc-desc">QR-coded boarding passes delivered to your email & WhatsApp instantly.</div></div>
+  </div>
+</section>
+
+<!-- ========== QR CODE ========== -->
+<section class="hs hw">
+  <div class="sh">
+    <div class="sh-tag"><i class="fa-solid fa-qrcode"></i> Scan & Book</div>
+    <h2 class="sh-title">Access SkyWay Anywhere</h2>
+    <p class="sh-sub">Scan the QR code to open this booking portal on your phone.</p>
+  </div>
+  <div class="qr-card">
+    <div class="qr-t">📱 SkyWay · KOP Booking Portal</div>
+    <div class="qr-sub">Scan to access Chhatrapati Rajaram Maharaj Airport Flight Booking</div>
+    <img id="homeQR" src="" style="width:180px;height:180px;border-radius:10px;" alt="QR Code">
+    <div style="font-size:11px;color:var(--muted);margin-top:9px;letter-spacing:.05em;">Scan with any QR reader to open this website</div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="site-footer">
+  <div class="fc">© 2026 Chhatrapati Rajaram Maharaj Airport, Kolhapur · SkyWay Booking Portal</div>
+  <div class="fl">
+    <a href="#" onclick="openFooterModal('privacy')">Privacy Policy</a>
+    <a href="#" onclick="openFooterModal('terms')">Terms of Use</a>
+    <a href="#" onclick="openFooterModal('contact')">Contact</a>
+    <a href="#" onclick="openLoginModal()">Login</a>
+  </div>
+</footer>
+
+<!-- ========== CHAT FAB (Deal AI) ========== -->
+<button class="chat-fab" onclick="toggleChat()" title="Chat with Deal AI">
+  <i class="fa-solid fa-comments"></i>
+  <span class="cf-badge"></span>
+</button>
+<div id="chatPanel">
+  <div class="chat-hdr">
+    <div class="chat-av">D</div>
+    <div><div class="chat-hn">Deal AI</div><div class="chat-hs">Online</div></div>
+    <button class="chat-cx" onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="chat-msgs" id="chatMsgs">
+    <div class="cm bot">Hi! I'm Deal 👋 Your SkyWay AI assistant. Ask me about flights, deals, bookings, baggage or anything else!</div>
+  </div>
+  <div class="chat-inp-row">
+    <input class="chat-inp" id="chatInput" placeholder="Type a message…">
+    <button class="chat-send" onclick="sendChat()"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+</div>
+
+<!-- ========== LOGIN MODAL ========== -->
+<div id="loginModal">
+  <div class="lm-box">
+    <button class="lm-close" onclick="closeLoginModal()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="lm-title">Welcome to SkyWay ✈</div>
+    <div class="lm-sub">Book flights from Kolhapur Airport easily</div>
+    <div class="lm-tabs">
+      <button class="lm-tab active" onclick="switchLoginTab('login',this)">Login</button>
+      <button class="lm-tab" onclick="switchLoginTab('signup',this)">Sign Up</button>
+    </div>
+    <div id="lm-login">
+      <div class="lm-field"><label>Email / Phone</label><input type="text" id="loginEmail" placeholder="user@airport.in"></div>
+      <div class="lm-field"><label>Password</label><input type="password" id="loginPwd" placeholder="••••••••"></div>
+      <div class="lm-error" id="lm-err">Invalid credentials. Demo: user@airport.in / 12345</div>
+      <button class="lm-submit" onclick="doLogin()">Login →</button>
+      <div style="font-size:10px;color:var(--muted);margin-top:7px;text-align:center;">Demo: user@airport.in / 12345 &nbsp;|&nbsp; admin / admin123</div>
+      <div class="lm-or">— or —</div>
+      <button class="lm-google" onclick="doGoogleSignIn()">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google"> Continue with Google
+      </button>
+    </div>
+    <div id="lm-signup" style="display:none;">
+      <div class="lm-field"><label>Full Name</label><input type="text" id="regName" placeholder="Your Name"></div>
+      <div class="lm-field"><label>Email</label><input type="email" id="regEmail" placeholder="your@email.com"></div>
+      <div class="lm-field"><label>Phone</label><input type="text" id="regPhone" placeholder="+91 99999 99999"></div>
+      <div class="lm-field"><label>Password</label><input type="password" id="regPwd" placeholder="Create password"></div>
+      <button class="lm-submit" onclick="doSignup()">Create Account →</button>
+      <div class="lm-or">— or —</div>
+      <button class="lm-google" onclick="doGoogleSignIn()">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google"> Continue with Google
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== ACCOUNT POPUP MODAL ========== -->
+<div id="accountModal">
+  <div class="acct-modal-box">
+    <div class="acct-modal-hdr">
+      <div id="acct-modal-title"></div>
+      <button class="acct-modal-close" onclick="closeAccountModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="acct-modal-body"></div>
+  </div>
+</div>
+
+<!-- ========== ADMIN LOGIN MODAL ========== -->
+<div id="adminLoginModal">
+  <div class="admin-login-box">
+    <div class="admin-login-ico"><i class="fa-solid fa-user-shield"></i></div>
+    <div class="admin-login-title">Admin Login</div>
+    <div class="admin-login-sub">Enter admin credentials to access the dashboard</div>
+    <div class="admin-login-err" id="adminLoginErr">❌ Invalid credentials. Try admin / admin123</div>
+    <div class="admin-field"><label>Username</label><input type="text" id="adminUser" placeholder="admin"></div>
+    <div class="admin-field"><label>Password</label><input type="password" id="adminPass" placeholder="••••••••"></div>
+    <button class="admin-login-btn" onclick="doAdminLogin()"><i class="fa-solid fa-right-to-bracket"></i> Access Dashboard</button>
+    <div class="admin-login-hint">Demo credentials: admin / admin123</div>
+    <button class="admin-modal-close-btn" onclick="closeAdminLogin()">Cancel</button>
+  </div>
+</div>
+
+<!-- ========== ADMIN DASHBOARD MODAL ========== -->
+<div id="adminDashModal">
+  <div class="admin-dash-box">
+    <div class="admin-dash-hdr">
+      <div class="admin-dash-title"><i class="fa-solid fa-cookie-bite" style="color:#f59e0b"></i> Admin Dashboard — KOP Control Panel</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="adm-version">v4.0 PRO</span>
+        <button class="admin-dash-close" onclick="closeAdminDashboard()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+    <div id="adminDashContent"></div>
+  </div>
+</div>
+
+<!-- ========== FOOTER POPUPS ========== -->
+<!-- Privacy Policy -->
+<div id="privacyModal" class="footer-modal">
+  <div class="footer-modal-box">
+    <div class="footer-modal-hdr">
+      <h3><i class="fa-solid fa-shield-halved"></i> Privacy Policy</h3>
+      <button class="footer-modal-close" onclick="closeFooterModal('privacy')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="footer-modal-body">
+      <div class="fm-section"><p style="font-size:11px;color:var(--muted);">Last updated: January 1, 2026 &nbsp;·&nbsp; Effective for all SkyWay KOP users</p></div>
+      <div class="fm-section"><h4>1. Information We Collect</h4><p>SkyWay collects information to provide you the best flight booking experience. This includes personal identification information (name, email, phone, date of birth), passport/ID details for international bookings, payment information (processed securely and never stored in full), and booking preferences and travel history.</p></div>
+      <div class="fm-section"><h4>2. How We Use Your Information</h4><ul><li>Process your flight bookings and issue e-tickets</li><li>Send booking confirmations and boarding passes via email/WhatsApp</li><li>Provide customer support and resolve booking issues</li><li>Send relevant fare alerts and seasonal offers (opt-out available)</li><li>Improve our platform based on usage analytics</li><li>Comply with DGCA and government aviation regulations</li></ul></div>
+      <div class="fm-section"><h4>3. Data Security</h4><p>All data is protected using 256-bit SSL encryption. Payment transactions comply with PCI DSS standards. We never sell your personal data to third parties. Data is retained only as long as required by law or for service delivery.</p></div>
+      <div class="fm-section"><h4>4. Cookies</h4><p>We use session cookies to maintain your login state and booking progress. Analytics cookies help us understand how passengers use our platform. You can disable cookies in your browser, though some features may not function correctly.</p></div>
+      <div class="fm-section"><h4>5. Your Rights</h4><ul><li>Access and download your personal data</li><li>Request correction of inaccurate information</li><li>Request deletion of your account and data</li><li>Opt out of marketing communications at any time</li></ul></div>
+      <div class="fm-section"><h4>6. Contact</h4><p>For privacy concerns, contact our Data Protection Officer at <strong>privacy@skyway-kop.in</strong> or call <strong>0231-2600500</strong>.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Terms of Use -->
+<div id="termsModal" class="footer-modal">
+  <div class="footer-modal-box">
+    <div class="footer-modal-hdr">
+      <h3><i class="fa-solid fa-file-contract"></i> Terms of Use</h3>
+      <button class="footer-modal-close" onclick="closeFooterModal('terms')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="footer-modal-body">
+      <div class="fm-section"><p style="font-size:11px;color:var(--muted);">By using SkyWay KOP, you agree to these terms. Please read carefully.</p></div>
+      <div class="fm-section"><h4>1. Acceptance of Terms</h4><p>By accessing or using the SkyWay booking portal for Chhatrapati Rajaram Maharaj Airport (KOP), you agree to be bound by these Terms of Use and all applicable laws and regulations.</p></div>
+      <div class="fm-section"><h4>2. Booking Rules</h4><ul><li>Passengers must carry valid government-issued photo ID matching the name on the ticket</li><li>Bookings are confirmed only upon successful payment completion</li><li>Fares shown are inclusive of base fare and applicable taxes</li><li>Seat assignments are subject to availability at time of booking</li><li>Infants (under 2) must travel on the lap of an accompanying adult</li></ul></div>
+      <div class="fm-section"><h4>3. Cancellations & Refunds</h4><ul><li>Cancellation fees apply as per individual airline policy</li><li>Refunds are processed to the original payment method within 5–7 business days</li><li>No-show passengers are not eligible for refunds</li><li>Promotional fares may be non-refundable</li></ul></div>
+      <div class="fm-section"><h4>4. Check-in Policy</h4><ul><li>Arrive at least 2 hours before departure for domestic flights</li><li>Web check-in available 48 hours before departure</li><li>Airport check-in counter closes 45 minutes before departure</li><li>Security check closes 30 minutes before departure</li></ul></div>
+      <div class="fm-section"><h4>5. Prohibited Uses</h4><p>You may not use this portal to make fraudulent bookings, resell tickets, or engage in any activity that violates applicable laws. SkyWay reserves the right to cancel bookings made in bad faith without refund.</p></div>
+      <div class="fm-section"><h4>6. Limitation of Liability</h4><p>SkyWay is a booking platform and intermediary. We are not liable for flight delays, cancellations, or changes made by airlines. Compensation for such events is governed by DGCA regulations and airline policy.</p></div>
+      <div class="fm-section"><h4>7. Governing Law</h4><p>These terms are governed by the laws of India. Any disputes are subject to the exclusive jurisdiction of courts in Kolhapur, Maharashtra.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Contact -->
+<div id="contactModal" class="footer-modal">
+  <div class="footer-modal-box">
+    <div class="footer-modal-hdr">
+      <h3><i class="fa-solid fa-headset"></i> Contact Us</h3>
+      <button class="footer-modal-close" onclick="closeFooterModal('contact')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="footer-modal-body">
+      <div class="fm-section"><p>We're here to help 24/7. Reach out through any of the channels below.</p></div>
+      <div class="fm-section">
+        <div class="fm-contact-grid">
+          <div class="fm-contact-card"><i class="fa-solid fa-phone"></i><strong>Airport Helpdesk</strong><span>0231-2600500</span><span style="font-size:11px;color:var(--muted);margin-top:4px;display:block;">Available 24/7</span></div>
+          <div class="fm-contact-card"><i class="fa-solid fa-envelope"></i><strong>Email Support</strong><span>support@skyway-kop.in</span><span style="font-size:11px;color:var(--muted);margin-top:4px;display:block;">Reply within 4 hours</span></div>
+          <div class="fm-contact-card"><i class="fa-brands fa-whatsapp"></i><strong>WhatsApp</strong><span>+91 98765 43210</span><span style="font-size:11px;color:var(--muted);margin-top:4px;display:block;">Mon–Sat 8am–10pm</span></div>
+          <div class="fm-contact-card"><i class="fa-solid fa-location-dot"></i><strong>Airport Address</strong><span>Kolhapur Airport Road, Kolhapur – 416003, Maharashtra</span></div>
+        </div>
+      </div>
+      <div class="fm-section"><h4>Airline Direct Contacts</h4><ul><li>IndiGo Customer Care: 0124-6173838</li><li>Star Air Customer Care: 1800-2100-700 (Toll Free)</li><li>DGCA Complaints: 011-24622495</li></ul></div>
+      <div class="fm-section"><h4>Lost & Found</h4><p>For items lost at Kolhapur Airport, contact the Airport Authority office at <strong>0231-2601100</strong> or email <strong>lostfound@kop-airport.in</strong>. Office hours: 08:00 AM – 08:00 PM daily.</p></div>
+      <div class="fm-section"><h4>Feedback & Suggestions</h4><p>Help us improve! Send your feedback to <strong>feedback@skyway-kop.in</strong>. We review all submissions and update our services accordingly.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast container -->
+<div id="toastContainer"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+<script src="js/shared.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>

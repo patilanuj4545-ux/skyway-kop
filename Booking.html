@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Bookings — SkyWay KOP</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/shared.css">
+<link rel="stylesheet" href="css/bookings.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="logo-wrap" href="index.html"><div class="logo-ico"><i class="fa-solid fa-plane-departure"></i></div><div><div class="logo-main">SkyWay ✈ KOP</div><div class="logo-sub">Kolhapur Airport</div></div></a>
+  <nav class="h-nav"><a class="hn" href="index.html">Home</a><a class="hn" href="search.html">Search</a><a class="hn" href="deals.html">View Deals</a></nav>
+  <div id="authArea"></div>
+</header>
+
+<div class="mb-wrap">
+  <div class="mb-head">
+    <a class="back-btn" href="index.html"><i class="fa-solid fa-arrow-left"></i></a>
+    <div><h2>My Bookings ✈</h2><p id="mb-sub">Your travel history</p></div>
+  </div>
+  <div class="mb-hero">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;">
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--white);margin-bottom:4px;">My Bookings ✈</div>
+        <div style="font-size:12px;color:var(--muted);">All your flight reservations and travel history</div>
+      </div>
+      <div id="mbUserInfo" style="font-size:12px;color:var(--sky);font-weight:700;"></div>
+    </div>
+  </div>
+
+  <!-- FILTER TABS -->
+  <div class="mb-tabs">
+    <button class="mb-tab active" onclick="filterBookings('all',this)">All</button>
+    <button class="mb-tab" onclick="filterBookings('confirmed',this)">Confirmed</button>
+    <button class="mb-tab" onclick="filterBookings('cancelled',this)">Cancelled</button>
+  </div>
+
+  <div id="mbContent">
+    <div class="mb-loading"><div class="lf-spin"></div><span>Loading bookings…</span></div>
+  </div>
+</div>
+
+<!-- CANCEL CONFIRM MODAL -->
+<div id="cancelModal" style="display:none;position:fixed;inset:0;z-index:500;background:rgba(4,8,15,.88);backdrop-filter:blur(8px);align-items:center;justify-content:center;">
+  <div style="background:var(--navy);border:1px solid rgba(239,68,68,.3);border-radius:18px;padding:26px;max-width:380px;width:90%;text-align:center;">
+    <i class="fa-solid fa-ban" style="font-size:36px;color:var(--red);margin-bottom:14px;display:block;"></i>
+    <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--white);margin-bottom:8px;">Cancel Booking?</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.7;">
+      Refund Policy:<br>• 7+ days before: 75% refund<br>• 2–7 days: 50% refund<br>• &lt;24h: Credit shell only
+    </div>
+    <div style="display:flex;gap:10px;justify-content:center;">
+      <button onclick="closeCancelModal()" style="background:transparent;border:1px solid var(--skyBorder);color:var(--muted);padding:9px 18px;border-radius:9px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;">Keep Booking</button>
+      <button id="confirmCancelBtn" style="background:linear-gradient(135deg,var(--red),#b91c1c);border:none;color:#fff;padding:9px 18px;border-radius:9px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;cursor:pointer;">Yes, Cancel</button>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer"><div class="fc">© 2026 Chhatrapati Rajaram Maharaj Airport, Kolhapur · SkyWay Booking Portal</div></footer>
+
+<!-- ACCOUNT POPUP MODAL -->
+<div id="accountModal">
+  <div class="acct-modal-box">
+    <div class="acct-modal-hdr">
+      <div id="acct-modal-title"></div>
+      <button class="acct-modal-close" onclick="closeAccountModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="acct-modal-body"></div>
+  </div>
+</div>
+<!-- ADMIN LOGIN MODAL -->
+<div id="adminLoginModal">
+  <div class="admin-login-box">
+    <div class="admin-login-ico"><i class="fa-solid fa-user-shield"></i></div>
+    <div class="admin-login-title">Admin Login</div>
+    <div class="admin-login-sub">Enter admin credentials</div>
+    <div class="admin-login-err" id="adminLoginErr">Invalid credentials. Try admin / admin123</div>
+    <div class="admin-field"><label>Username</label><input type="text" id="adminUser" placeholder="admin"></div>
+    <div class="admin-field"><label>Password</label><input type="password" id="adminPass" placeholder="••••••••"></div>
+    <button class="admin-login-btn" onclick="doAdminLogin()">Access Dashboard</button>
+    <div class="admin-login-hint">Demo: admin / admin123</div>
+    <button class="admin-modal-close-btn" onclick="closeAdminLogin()">Cancel</button>
+  </div>
+</div>
+<!-- ADMIN DASHBOARD MODAL -->
+<div id="adminDashModal">
+  <div class="admin-dash-box">
+    <div class="admin-dash-hdr">
+      <div class="admin-dash-title"><i class="fa-solid fa-cookie-bite" style="color:#f59e0b"></i> Admin Dashboard — KOP Control Panel</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="adm-version">v4.0 PRO</span>
+        <button class="admin-dash-close" onclick="closeAdminDashboard()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+    <div id="adminDashContent"></div>
+  </div>
+</div>
+<div id="toastContainer"></div>
+<div id="loginModal">
+  <div class="lm-box">
+    <button class="lm-close" onclick="closeLoginModal()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="lm-title">Login Required</div>
+    <div class="lm-sub">Please login to view your bookings</div>
+    <div class="lm-tabs"><button class="lm-tab active" onclick="switchLoginTab('login',this)">Login</button><button class="lm-tab" onclick="switchLoginTab('signup',this)">Sign Up</button></div>
+    <div id="lm-login">
+      <div class="lm-field"><label>Email / Phone</label><input type="text" id="loginEmail" placeholder="user@airport.in"></div>
+      <div class="lm-field"><label>Password</label><input type="password" id="loginPwd" placeholder="••••••••"></div>
+      <div class="lm-error" id="lm-err">Invalid credentials</div>
+      <button class="lm-submit" onclick="doLoginAndRefresh()">Login →</button>
+      <div style="font-size:10px;color:var(--muted);margin-top:7px;text-align:center;">Demo: user@airport.in / 12345</div>
+      <div class="lm-or">— or —</div>
+      <button class="lm-google" onclick="doGoogleSignIn()"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G"> Continue with Google</button>
+    </div>
+    <div id="lm-signup" style="display:none;">
+      <div class="lm-field"><label>Full Name</label><input type="text" id="regName" placeholder="Your Name"></div>
+      <div class="lm-field"><label>Email</label><input type="email" id="regEmail" placeholder="your@email.com"></div>
+      <div class="lm-field"><label>Phone</label><input type="text" id="regPhone" placeholder="+91 99999 99999"></div>
+      <div class="lm-field"><label>Password</label><input type="password" id="regPwd" placeholder="Create password"></div>
+      <button class="lm-submit" onclick="doSignup()">Create Account →</button>
+    </div>
+  </div>
+</div>
+<script src="js/shared.js"></script>
+<script src="js/bookings.js"></script>
+</body>
+</html>

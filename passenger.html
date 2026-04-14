@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Passenger Details — SkyWay KOP</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/shared.css">
+<link rel="stylesheet" href="css/passenger.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="logo-wrap" href="index.html"><div class="logo-ico"><i class="fa-solid fa-plane-departure"></i></div><div><div class="logo-main">SkyWay ✈ KOP</div><div class="logo-sub">Kolhapur Airport</div></div></a>
+  <nav class="h-nav"><a class="hn" href="index.html">Home</a><a class="hn" href="search.html">Search</a><a class="hn" href="deals.html">View Deals</a></nav>
+  <div id="authArea"></div>
+</header>
+<div class="pf-wrap">
+  <div class="pf-head">
+    <a class="back-btn" href="result.html"><i class="fa-solid fa-arrow-left"></i></a>
+    <div><h2>Passenger Details</h2><p>Fill in your details to proceed to payment</p></div>
+  </div>
+  <div class="steps">
+    <div class="step done"><div class="step-n">✓</div><span class="step-lbl">Search</span></div>
+    <div class="step-line done"></div>
+    <div class="step done"><div class="step-n">✓</div><span class="step-lbl">Select</span></div>
+    <div class="step-line done"></div>
+    <div class="step active"><div class="step-n">3</div><span class="step-lbl">Passenger</span></div>
+    <div class="step-line"></div>
+    <div class="step idle"><div class="step-n">4</div><span class="step-lbl">Payment</span></div>
+    <div class="step-line"></div>
+    <div class="step idle"><div class="step-n">5</div><span class="step-lbl">Ticket</span></div>
+  </div>
+  <!-- FLIGHT SUMMARY BOX -->
+  <div class="fs-box">
+    <div><div class="fs-route" id="fs-route">—</div><div class="fs-detail" id="fs-detail">—</div></div>
+    <div class="fs-badge" id="fs-badge">Economy</div>
+  </div>
+  <!-- SECURITY TIP -->
+  <div class="sec-tip">
+    <i class="fa-solid fa-triangle-exclamation"></i>
+    <div><div class="sec-tip-title">Security Advisory</div><p>Never share your PNR number publicly. Contact airline care if you suspect fraud.</p></div>
+  </div>
+  <!-- ITINERARY -->
+  <div class="pf-sec">
+    <div class="pf-sec-title"><i class="fa-solid fa-route"></i> Flight Itinerary</div>
+    <div class="itin-row">
+      <div class="itin-t-blk"><div class="itin-t" id="it-dep">—</div><div class="itin-ap" id="it-dap">KOP</div></div>
+      <div class="itin-line"><div class="itin-track"></div><div class="itin-dur" id="it-dur">—</div></div>
+      <div class="itin-t-blk"><div class="itin-t" id="it-arr">—</div><div class="itin-ap" id="it-aap">—</div></div>
+    </div>
+    <div class="itin-meta" id="it-meta"></div>
+  </div>
+  <!-- PASSENGER TABS -->
+  <div class="pf-sec">
+    <div class="pf-sec-title"><i class="fa-solid fa-users"></i> Passenger Information</div>
+    <div class="pax-tabs" id="paxTabs"></div>
+    <div id="paxForms"></div>
+  </div>
+  <!-- SEAT SELECTION -->
+  <div class="pf-sec">
+    <div class="pf-sec-title"><i class="fa-solid fa-chair"></i> Seat Selection <span style="font-size:11px;font-weight:500;color:var(--muted);">(optional)</span></div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:11px;">Selected: <strong id="selectedSeatDisplay" style="color:var(--sky);">Auto-assign</strong></div>
+    <div class="seat-wrap" id="seatMap"></div>
+    <div class="seat-legend">
+      <div class="sl-i"><div class="sl-sw sl-a"></div> Available</div>
+      <div class="sl-i"><div class="sl-sw sl-t"></div> Occupied</div>
+      <div class="sl-i"><div class="sl-sw sl-s"></div> Selected</div>
+    </div>
+  </div>
+  <!-- MEAL PREFERENCE -->
+  <div class="pf-sec">
+    <div class="pf-sec-title"><i class="fa-solid fa-utensils"></i> Meal Preference</div>
+    <div class="meal-grid">
+      <div class="meal-opt selected" onclick="selMeal(this,'Standard')">🍽️ Standard</div>
+      <div class="meal-opt" onclick="selMeal(this,'Vegetarian')">🥗 Vegetarian</div>
+      <div class="meal-opt" onclick="selMeal(this,'Vegan')">🌱 Vegan</div>
+      <div class="meal-opt" onclick="selMeal(this,'Jain')">🕉️ Jain</div>
+      <div class="meal-opt" onclick="selMeal(this,'Kosher')">✡️ Kosher</div>
+      <div class="meal-opt" onclick="selMeal(this,'Halal')">☪️ Halal</div>
+      <div class="meal-opt" onclick="selMeal(this,'Gluten-Free')">🌾 Gluten-Free</div>
+      <div class="meal-opt" onclick="selMeal(this,'Child Meal')">🧒 Child Meal</div>
+      <div class="meal-opt" onclick="selMeal(this,'No Meal')">🚫 No Meal</div>
+    </div>
+  </div>
+  <div class="submit-row">
+    <a class="btn-sec" href="result.html"><i class="fa-solid fa-arrow-left"></i> Back</a>
+    <button class="btn-pri" onclick="proceedToPayment()"><i class="fa-solid fa-credit-card"></i> Proceed to Payment</button>
+  </div>
+</div>
+<footer class="site-footer"><div class="fc">© 2026 Chhatrapati Rajaram Maharaj Airport, Kolhapur</div></footer>
+
+<!-- ACCOUNT POPUP MODAL -->
+<div id="accountModal">
+  <div class="acct-modal-box">
+    <div class="acct-modal-hdr">
+      <div id="acct-modal-title"></div>
+      <button class="acct-modal-close" onclick="closeAccountModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="acct-modal-body"></div>
+  </div>
+</div>
+<!-- ADMIN LOGIN MODAL -->
+<div id="adminLoginModal">
+  <div class="admin-login-box">
+    <div class="admin-login-ico"><i class="fa-solid fa-user-shield"></i></div>
+    <div class="admin-login-title">Admin Login</div>
+    <div class="admin-login-sub">Enter admin credentials</div>
+    <div class="admin-login-err" id="adminLoginErr">Invalid credentials. Try admin / admin123</div>
+    <div class="admin-field"><label>Username</label><input type="text" id="adminUser" placeholder="admin"></div>
+    <div class="admin-field"><label>Password</label><input type="password" id="adminPass" placeholder="••••••••"></div>
+    <button class="admin-login-btn" onclick="doAdminLogin()">Access Dashboard</button>
+    <div class="admin-login-hint">Demo: admin / admin123</div>
+    <button class="admin-modal-close-btn" onclick="closeAdminLogin()">Cancel</button>
+  </div>
+</div>
+<!-- ADMIN DASHBOARD MODAL -->
+<div id="adminDashModal">
+  <div class="admin-dash-box">
+    <div class="admin-dash-hdr">
+      <div class="admin-dash-title"><i class="fa-solid fa-cookie-bite" style="color:#f59e0b"></i> Admin Dashboard — KOP Control Panel</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="adm-version">v4.0 PRO</span>
+        <button class="admin-dash-close" onclick="closeAdminDashboard()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+    <div id="adminDashContent"></div>
+  </div>
+</div>
+<div id="toastContainer"></div>
+<script src="js/shared.js"></script>
+<script src="js/passenger.js"></script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boarding Pass — SkyWay KOP</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/shared.css">
+<link rel="stylesheet" href="css/boarding.css">
+<style>
+/* ── Multi-passenger tab bar ── */
+.bp-pax-counter {
+  text-align:center; font-family:'Syne',sans-serif; font-size:12px; font-weight:700;
+  color:var(--sky3); background:rgba(56,189,248,.06); border:1px solid rgba(56,189,248,.15);
+  border-radius:10px; padding:9px 18px; margin-bottom:12px;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+}
+.bp-pax-counter i { color:var(--sky); }
+#boardingTabs {
+  display:flex; gap:8px; flex-wrap:wrap; justify-content:center;
+  margin-bottom:18px;
+}
+.bp-tab-btn {
+  padding:8px 18px; border-radius:22px; border:1px solid rgba(56,189,248,.2);
+  background:rgba(56,189,248,.05); color:var(--text);
+  font-family:'Syne',sans-serif; font-size:11px; font-weight:700;
+  cursor:pointer; transition:all .2s; display:flex; align-items:center; gap:6px;
+}
+.bp-tab-btn.active {
+  background:linear-gradient(135deg,var(--sky),var(--sky2));
+  color:#000; border-color:transparent;
+  box-shadow:0 4px 14px rgba(56,189,248,.3);
+}
+.bp-tab-btn i { font-size:10px; }
+.bp-lead-tag {
+  background:rgba(34,197,94,.15); border:1px solid rgba(34,197,94,.25);
+  color:#4ade80; border-radius:8px; padding:1px 6px; font-size:9px; font-weight:800;
+}
+/* Nav row */
+#bp-nav-row {
+  display:none; align-items:center; justify-content:center;
+  gap:14px; margin-top:16px;
+}
+.bp-nav-btn {
+  padding:9px 22px; border-radius:22px;
+  background:rgba(56,189,248,.08); border:1px solid rgba(56,189,248,.2);
+  color:var(--sky); font-family:'Syne',sans-serif; font-size:12px; font-weight:700;
+  cursor:pointer; transition:all .2s; display:flex; align-items:center; gap:7px;
+}
+.bp-nav-btn:hover:not(:disabled) { background:rgba(56,189,248,.18); }
+.bp-nav-btn:disabled { opacity:.35; cursor:default; }
+#tk-pax-num {
+  font-family:'Syne',sans-serif; font-size:11px; font-weight:700;
+  color:var(--muted); text-align:center;
+  background:rgba(255,255,255,.04); border-radius:8px; padding:4px 14px;
+}
+/* Print: show all passes */
+@media print {
+  .site-header, .post-ticket, #boardingTabs, #bp-nav-row, .bp-pax-counter,
+  .chat-fab, footer { display:none !important; }
+  .ticket { page-break-after:always; }
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="logo-wrap" href="index.html">
+    <div class="logo-ico"><i class="fa-solid fa-plane-departure"></i></div>
+    <div><div class="logo-main">SkyWay ✈ KOP</div><div class="logo-sub">Kolhapur Airport</div></div>
+  </a>
+  <nav class="h-nav">
+    <a class="hn" href="index.html">Home</a>
+    <a class="hn" href="deals.html">View Deals</a>
+  </nav>
+  <div id="authArea"></div>
+</header>
+
+<div class="tk-wrap">
+  <div class="tk-head">
+    <div class="success-ico">✓</div>
+    <h2>Booking Confirmed! 🎉</h2>
+    <p>Your boarding pass has been generated. Check your email &amp; SMS.</p>
+  </div>
+
+  <!-- MULTI-PAX TABS -->
+  <div id="boardingTabs"></div>
+
+  <!-- BOARDING PASS TICKET -->
+  <div class="ticket" id="ticketEl">
+    <div class="tk-top">
+      <div class="tk-al-info">
+        <h3 id="tk-airline">SkyWay</h3>
+        <div class="tk-cls" id="tk-class-badge">ECONOMY</div>
+      </div>
+      <div class="tk-logo-area">
+        <div class="tk-logo-ico">✈</div>
+        <div class="tk-logo-txt">RAJARAM MAHARAJ AIRPORT · KOLHAPUR</div>
+      </div>
+    </div>
+    <div class="tk-mid">
+      <div class="tk-main">
+        <div class="tk-ri">
+          <div class="tk-cb"><div class="tk-cc" id="tk-from">KOP</div><div class="tk-cn">Kolhapur</div></div>
+          <div class="tk-fp">
+            <div class="tk-pl"></div>
+            <div class="tk-pd" id="tk-dur">—</div>
+          </div>
+          <div class="tk-cb"><div class="tk-cc" id="tk-to">—</div><div class="tk-cn" id="tk-to-name">—</div></div>
+        </div>
+        <div class="tk-fields">
+          <div class="tk-field"><label>Passenger</label><div class="val" id="tk-pax">—</div></div>
+          <div class="tk-field"><label>Flight No.</label><div class="val" id="tk-flt">—</div></div>
+          <div class="tk-field"><label>Date</label><div class="val" id="tk-date">—</div></div>
+          <div class="tk-field"><label>Departure</label><div class="val" id="tk-dep">—</div></div>
+          <div class="tk-field"><label>Arrival</label><div class="val" id="tk-arr">—</div></div>
+          <div class="tk-field"><label>Terminal / Gate</label><div class="val" id="tk-gate">T1 / G3</div></div>
+          <div class="tk-field"><label>Seat</label><div class="val" id="tk-seat">—</div></div>
+          <div class="tk-field"><label>Meal</label><div class="val" id="tk-meal">—</div></div>
+          <div class="tk-field"><label>Zone</label><div class="val" id="tk-zone">A</div></div>
+        </div>
+        <div class="tk-bc">
+          <div class="tk-bc-bars" id="tk-barcode"></div>
+          <div class="tk-pnr" id="tk-pnr">—</div>
+        </div>
+      </div>
+      <div class="tk-stub">
+        <div class="tk-sr"><label>Passenger</label><div class="val" id="tks-pax">—</div></div>
+        <div class="tk-sr"><label>Flight</label><div class="val" id="tks-flt">—</div></div>
+        <div class="tk-sr"><label>Date</label><div class="val" id="tks-date">—</div></div>
+        <div class="tk-sr"><label>Seat</label><div class="val" id="tks-seat">—</div></div>
+        <div class="tk-sr"><label>Zone</label><div class="val" id="tks-zone-stub">A</div></div>
+        <div class="tk-sr"><label>Boarding Time</label><div class="val" id="tks-board">—</div></div>
+        <div style="margin-top:11px;text-align:center;">
+          <img id="tk-qr" src="" style="width:65px;height:65px;border-radius:6px;" alt="QR">
+        </div>
+      </div>
+    </div>
+    <div class="tk-bot">
+      <div class="tk-warn"><i class="fa-solid fa-triangle-exclamation"></i> Gate closes 25 min before departure</div>
+      <div style="font-size:10px;color:#666;">Non-transferable · SkyWay KOP</div>
+    </div>
+  </div>
+
+  <!-- PASSENGER NAV (for multi-passenger) -->
+  <div id="bp-nav-row">
+    <button class="bp-nav-btn" id="bp-prev" onclick="switchBoardingPass(currentPassIndex-1)">
+      <i class="fa-solid fa-chevron-left"></i> Previous
+    </button>
+    <div id="tk-pax-num"></div>
+    <button class="bp-nav-btn" id="bp-next" onclick="switchBoardingPass(currentPassIndex+1)">
+      Next <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+
+  <!-- POST TICKET -->
+  <div class="post-ticket">
+    <div class="sec-rem">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <div>
+        <div class="sec-rem-t">⚠ Security Reminder</div>
+        <p>Never share your PNR and last name publicly. Each passenger's boarding pass has a unique QR code. Present individual passes at the gate.</p>
+      </div>
+    </div>
+    <div class="care-box">
+      <i class="fa-solid fa-phone"></i>
+      <div>
+        <div class="care-t">Airline Customer Care</div>
+        <div class="al-grid">
+          <div class="al-c"><strong>Star Air</strong>1800-123-0099</div>
+          <div class="al-c"><strong>IndiGo</strong>0124-6173838</div>
+          <div class="al-c"><strong>Air India</strong>1800-180-1407</div>
+          <div class="al-c"><strong>SpiceJet</strong>0124-7183838</div>
+          <div class="al-c"><strong>Akasa Air</strong>080-61226230</div>
+          <div class="al-c"><strong>AirAsia</strong>080-46662222</div>
+        </div>
+      </div>
+    </div>
+    <div class="action-row">
+      <button class="btn-dl" onclick="window.print()"><i class="fa-solid fa-print"></i> Print / Save PDF</button>
+      <button class="btn-wa" id="waShareBtn"><i class="fa-brands fa-whatsapp"></i> Share on WhatsApp</button>
+      <button class="btn-em" id="emailShareBtn"><i class="fa-solid fa-envelope"></i> Send Email</button>
+      <a class="btn-hm" href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+      <a class="btn-hm" href="bookings.html"><i class="fa-solid fa-ticket-simple"></i> My Bookings</a>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="fc">© 2026 Chhatrapati Rajaram Maharaj Airport, Kolhapur · SkyWay Booking Portal</div>
+</footer>
+
+<!-- MODALS -->
+<div id="accountModal"><div class="acct-modal-box"><div class="acct-modal-hdr"><div id="acct-modal-title"></div><button class="acct-modal-close" onclick="closeAccountModal()"><i class="fa-solid fa-xmark"></i></button></div><div id="acct-modal-body"></div></div></div>
+<div id="adminLoginModal"><div class="admin-login-box"><div class="admin-login-ico"><i class="fa-solid fa-user-shield"></i></div><div class="admin-login-title">Admin Login</div><div class="admin-login-sub">Enter admin credentials</div><div class="admin-login-err" id="adminLoginErr">Invalid credentials. Try admin / admin123</div><div class="admin-field"><label>Username</label><input type="text" id="adminUser" placeholder="admin"></div><div class="admin-field"><label>Password</label><input type="password" id="adminPass" placeholder="••••••••"></div><button class="admin-login-btn" onclick="doAdminLogin()">Access Dashboard</button><div class="admin-login-hint">Demo: admin / admin123</div><button class="admin-modal-close-btn" onclick="closeAdminLogin()">Cancel</button></div></div>
+<div id="adminDashModal"><div class="admin-dash-box"><div class="admin-dash-hdr"><div class="admin-dash-title"><i class="fa-solid fa-user-shield"></i> Admin Dashboard — SkyWay KOP</div><button class="admin-dash-close" onclick="closeAdminDashboard()"><i class="fa-solid fa-xmark"></i></button></div><div id="adminDashContent"></div></div></div>
+<div id="toastContainer"></div>
+<script src="js/shared.js"></script>
+<script src="js/boarding.js"></script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flight Results — SkyWay KOP</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/shared.css">
+<link rel="stylesheet" href="css/result.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a class="logo-wrap" href="index.html">
+    <div class="logo-ico"><i class="fa-solid fa-plane-departure"></i></div>
+    <div><div class="logo-main">SkyWay ✈ KOP</div><div class="logo-sub">Kolhapur Airport</div></div>
+  </a>
+  <nav class="h-nav">
+    <a class="hn" href="index.html">Home</a>
+    <a class="hn" href="search.html">Search</a>
+    <a class="hn" href="deals.html">View Deals</a>
+  </nav>
+  <div id="authArea"></div>
+</header>
+
+<div class="r-wrap">
+  <div class="r-head">
+    <a class="back-btn" href="search.html"><i class="fa-solid fa-arrow-left"></i></a>
+    <div class="r-ri"><h2 id="r-title">Kolhapur → ?</h2><p id="r-sub"></p></div>
+    <div class="r-cnt" id="r-cnt">0 flights</div>
+  </div>
+
+  <!-- SEARCH SUMMARY BAR -->
+  <div class="ss-bar">
+    <div class="ssi"><i class="fa-solid fa-plane-departure"></i><span id="ss-from">KOP</span></div>
+    <div class="ss-div"></div>
+    <div class="ssi"><i class="fa-solid fa-plane-arrival"></i><span id="ss-to">—</span></div>
+    <div class="ss-div"></div>
+    <div class="ssi"><i class="fa-solid fa-calendar"></i><span id="ss-date">—</span></div>
+    <div class="ss-div"></div>
+    <div class="ssi"><i class="fa-solid fa-user"></i><span id="ss-pax">—</span></div>
+    <div class="ss-div"></div>
+    <div class="ssi"><i class="fa-solid fa-arrows-rotate"></i><span id="ss-trip">One Way</span></div>
+    <a href="search.html" class="ss-edit"><i class="fa-solid fa-pen"></i> Modify</a>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="f-bar">
+    <span class="f-lbl">Sort &amp; Filter:</span>
+    <button class="f-chip active" onclick="sortFlights('price',this)">💰 Cheapest</button>
+    <button class="f-chip" onclick="sortFlights('dur',this)">⚡ Fastest</button>
+    <button class="f-chip" onclick="sortFlights('ns',this)">🎯 Nonstop</button>
+    <button class="f-chip" onclick="sortFlights('morn',this)">🌅 Morning</button>
+    <button class="f-chip" onclick="sortFlights('eve',this)">🌆 Evening</button>
+    <button class="f-chip" onclick="sortFlights('s5',this)">⭐ Star Air</button>
+    <button class="f-chip" onclick="sortFlights('6e',this)">🔵 IndiGo</button>
+  </div>
+
+  <!-- FLIGHT LIST -->
+  <div class="fl-list" id="flightList">
+    <div class="loading-flights"><div class="lf-spin"></div><div>Searching best fares…</div></div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="fc">© 2026 Chhatrapati Rajaram Maharaj Airport, Kolhapur · SkyWay Booking Portal</div>
+  <div class="fl"><a href="index.html">Home</a><a href="search.html">Search</a></div>
+</footer>
+
+<button class="chat-fab" onclick="toggleChat()"><i class="fa-solid fa-comments"></i><span class="cf-badge"></span></button>
+<div id="chatPanel">
+  <div class="chat-hdr"><div class="chat-av">D</div><div><div class="chat-hn">Deal AI</div><div class="chat-hs">Online</div></div><button class="chat-cx" onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></button></div>
+  <div class="chat-msgs" id="chatMsgs"><div class="cm bot">Hi! Need help choosing a flight? Ask me anything!</div></div>
+  <div class="chat-inp-row"><input class="chat-inp" id="chatInput" placeholder="Type a message…"><button class="chat-send" onclick="sendChat()"><i class="fa-solid fa-paper-plane"></i></button></div>
+</div>
+<div id="loginModal">
+  <div class="lm-box">
+    <button class="lm-close" onclick="closeLoginModal()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="lm-title">Login Required</div>
+    <div class="lm-sub">Please login to book a flight</div>
+    <div class="lm-tabs"><button class="lm-tab active" onclick="switchLoginTab('login',this)">Login</button><button class="lm-tab" onclick="switchLoginTab('signup',this)">Sign Up</button></div>
+    <div id="lm-login">
+      <div class="lm-field"><label>Email / Phone</label><input type="text" id="loginEmail" placeholder="user@airport.in"></div>
+      <div class="lm-field"><label>Password</label><input type="password" id="loginPwd" placeholder="••••••••"></div>
+      <div class="lm-error" id="lm-err">Invalid credentials</div>
+      <button class="lm-submit" onclick="doLogin()">Login →</button>
+      <div style="font-size:10px;color:var(--muted);margin-top:7px;text-align:center;">Demo: user@airport.in / 12345</div>
+      <div class="lm-or">— or —</div>
+      <button class="lm-google" onclick="doGoogleSignIn()"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G"> Continue with Google</button>
+    </div>
+    <div id="lm-signup" style="display:none;">
+      <div class="lm-field"><label>Full Name</label><input type="text" id="regName" placeholder="Your Name"></div>
+      <div class="lm-field"><label>Email</label><input type="email" id="regEmail" placeholder="your@email.com"></div>
+      <div class="lm-field"><label>Phone</label><input type="text" id="regPhone" placeholder="+91 99999 99999"></div>
+      <div class="lm-field"><label>Password</label><input type="password" id="regPwd" placeholder="Create password"></div>
+      <button class="lm-submit" onclick="doSignup()">Create Account →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ACCOUNT POPUP MODAL -->
+<div id="accountModal">
+  <div class="acct-modal-box">
+    <div class="acct-modal-hdr">
+      <div id="acct-modal-title"></div>
+      <button class="acct-modal-close" onclick="closeAccountModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="acct-modal-body"></div>
+  </div>
+</div>
+<!-- ADMIN LOGIN MODAL -->
+<div id="adminLoginModal">
+  <div class="admin-login-box">
+    <div class="admin-login-ico"><i class="fa-solid fa-user-shield"></i></div>
+    <div class="admin-login-title">Admin Login</div>
+    <div class="admin-login-sub">Enter admin credentials</div>
+    <div class="admin-login-err" id="adminLoginErr">Invalid credentials. Try admin / admin123</div>
+    <div class="admin-field"><label>Username</label><input type="text" id="adminUser" placeholder="admin"></div>
+    <div class="admin-field"><label>Password</label><input type="password" id="adminPass" placeholder="••••••••"></div>
+    <button class="admin-login-btn" onclick="doAdminLogin()">Access Dashboard</button>
+    <div class="admin-login-hint">Demo: admin / admin123</div>
+    <button class="admin-modal-close-btn" onclick="closeAdminLogin()">Cancel</button>
+  </div>
+</div>
+<!-- ADMIN DASHBOARD MODAL -->
+<div id="adminDashModal">
+  <div class="admin-dash-box">
+    <div class="admin-dash-hdr">
+      <div class="admin-dash-title"><i class="fa-solid fa-cookie-bite" style="color:#f59e0b"></i> Admin Dashboard — KOP Control Panel</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="adm-version">v4.0 PRO</span>
+        <button class="admin-dash-close" onclick="closeAdminDashboard()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+    <div id="adminDashContent"></div>
+  </div>
+</div>
+<div id="toastContainer"></div>
+
+<script src="js/shared.js"></script>
+<script src="js/result.js"></script>
+</body>
+</html>

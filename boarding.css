@@ -1,0 +1,63 @@
+/* boarding.css */
+@media print {
+  .site-header, .post-ticket, footer, .chat-fab { display: none !important; }
+  body { background: #fff !important; color: #000 !important; }
+  .ticket { box-shadow: none !important; }
+}
+.tk-wrap { max-width: 900px; margin: 0 auto; padding: 18px 22px 52px; position: relative; z-index: 1; }
+.tk-head { text-align: center; margin-bottom: 20px; }
+.tk-head h2 { font-family: 'Syne',sans-serif; font-size: 22px; font-weight: 800; color: var(--white); }
+.tk-head p { font-size: 12px; color: var(--muted); margin-top: 3px; }
+.success-ico { width: 54px; height: 54px; background: linear-gradient(135deg,var(--green),#16a34a); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; margin: 0 auto 12px; box-shadow: 0 0 24px rgba(34,197,94,.35); }
+
+/* TICKET */
+.ticket { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 26px 70px rgba(0,0,0,.6); }
+.tk-top { background: linear-gradient(135deg,#0a1f4a,#0f2d6b); padding: 17px 22px; display: flex; align-items: center; justify-content: space-between; }
+.tk-al-info h3 { font-family: 'Syne',sans-serif; font-size: 16px; font-weight: 800; color: #fff; }
+.tk-cls { background: rgba(56,189,248,.2); border: 1px solid rgba(56,189,248,.4); border-radius: 18px; padding: 3px 10px; font-size: 10px; color: #7dd3fc; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin-top: 3px; display: inline-block; }
+.tk-logo-area { text-align: right; }
+.tk-logo-ico { font-size: 24px; color: #38bdf8; }
+.tk-logo-txt { font-family: 'Syne',sans-serif; font-size: 9px; font-weight: 800; color: rgba(255,255,255,.5); letter-spacing: .07em; }
+.tk-mid { display: flex; background: #fff; }
+.tk-main { flex: 1; padding: 19px 22px; border-right: 2px dashed #ddd; }
+.tk-stub { width: 180px; padding: 18px 15px; flex-shrink: 0; }
+.tk-ri { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
+.tk-cb { text-align: center; }
+.tk-cc { font-family: 'Syne',sans-serif; font-size: 27px; font-weight: 800; color: #0a1f4a; line-height: 1; }
+.tk-cn { font-size: 10px; color: #666; margin-top: 2px; }
+.tk-fp { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 0 11px; }
+.tk-pl { width: 100%; height: 1px; background: linear-gradient(90deg,#0a1f4a,#38bdf8,#0a1f4a); position: relative; margin-bottom: 3px; }
+.tk-pl::after { content: '✈'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 12px; color: #38bdf8; background: #fff; padding: 0 3px; }
+.tk-pd { font-size: 10px; color: #888; letter-spacing: .06em; }
+.tk-fields { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.tk-field label { display: block; font-size: 8px; color: #888; letter-spacing: .07em; text-transform: uppercase; margin-bottom: 2px; }
+.tk-field .val { font-family: 'Syne',sans-serif; font-size: 13px; font-weight: 700; color: #0a1f4a; }
+.tk-bc { text-align: center; padding-top: 9px; border-top: 1px dashed #eee; }
+.tk-bc-bars { font-family: monospace; font-size: 6px; letter-spacing: -1px; color: #0a1f4a; line-height: 1.3; }
+.tk-pnr { font-family: 'Syne',sans-serif; font-size: 11px; font-weight: 800; color: #0a1f4a; letter-spacing: .14em; margin-top: 3px; }
+.tk-sr { margin-bottom: 10px; }
+.tk-sr label { display: block; font-size: 8px; color: #888; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 2px; }
+.tk-sr .val { font-family: 'Syne',sans-serif; font-size: 12px; font-weight: 800; color: #0a1f4a; }
+.tk-bot { background: #f0f4f8; padding: 12px 22px; display: flex; align-items: center; justify-content: space-between; }
+.tk-warn { display: flex; align-items: center; gap: 5px; font-size: 10px; color: #666; }
+.tk-warn i { color: #e53e3e; font-size: 10px; }
+
+/* POST TICKET */
+.post-ticket { margin-top: 16px; }
+.sec-rem { background: rgba(245,158,11,.07); border: 1px solid rgba(245,158,11,.2); border-radius: 11px; padding: 12px 15px; display: flex; gap: 8px; align-items: flex-start; margin-bottom: 12px; }
+.sec-rem i { color: var(--amber); font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+.sec-rem-t { font-family: 'Syne',sans-serif; font-size: 12px; font-weight: 800; color: var(--amber); margin-bottom: 3px; }
+.sec-rem p { font-size: 11px; color: rgba(245,158,11,.75); line-height: 1.6; }
+.care-box { background: var(--skyDim); border: 1px solid var(--skyBorder); border-radius: 11px; padding: 12px 15px; display: flex; gap: 8px; align-items: flex-start; margin-bottom: 12px; }
+.care-box i { color: var(--sky); font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+.care-t { font-family: 'Syne',sans-serif; font-size: 12px; font-weight: 800; color: var(--sky); margin-bottom: 6px; }
+.al-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(175px,1fr)); gap: 6px; margin-top: 4px; }
+.al-c { background: rgba(56,189,248,.05); border: 1px solid var(--skyBorder); border-radius: 8px; padding: 6px 9px; font-size: 11px; color: var(--text); }
+.al-c strong { display: block; color: var(--sky); font-family: 'Syne',sans-serif; font-size: 10px; font-weight: 700; margin-bottom: 1px; }
+.action-row { display: flex; gap: 8px; justify-content: center; margin-top: 15px; flex-wrap: wrap; }
+.btn-dl { background: linear-gradient(135deg,var(--sky),var(--sky2)); color: #000; border: none; padding: 10px 20px; border-radius: 10px; font-family: 'Nunito',sans-serif; font-size: 12px; font-weight: 800; cursor: pointer; transition: all .3s; display: inline-flex; align-items: center; gap: 6px; }
+.btn-dl:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(56,189,248,.4); }
+.btn-wa { background: linear-gradient(135deg,#25d366,#128c7e); color: #fff; border: none; padding: 10px 20px; border-radius: 10px; font-family: 'Nunito',sans-serif; font-size: 12px; font-weight: 800; cursor: pointer; transition: all .3s; display: inline-flex; align-items: center; gap: 6px; }
+.btn-em { background: rgba(56,189,248,.1); border: 1px solid var(--skyBorder); color: var(--sky); padding: 10px 20px; border-radius: 10px; font-family: 'Nunito',sans-serif; font-size: 12px; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+.btn-hm { background: transparent; border: 1px solid var(--skyBorder); color: var(--sky); padding: 10px 20px; border-radius: 10px; font-family: 'Nunito',sans-serif; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; transition: all .2s; }
+.btn-hm:hover { background: var(--skyDim); }

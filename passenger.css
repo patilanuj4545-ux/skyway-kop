@@ -1,0 +1,84 @@
+/* passenger.css */
+.pf-wrap { max-width: 820px; margin: 0 auto; padding: 22px 24px 56px; position: relative; z-index: 1; }
+.pf-head { display: flex; align-items: center; gap: 13px; margin-bottom: 22px; }
+.pf-head h2 { font-family: 'Syne',sans-serif; font-size: 20px; font-weight: 800; color: var(--white); }
+.pf-head p { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+.fs-box { background: var(--card); border: 1px solid var(--skyBorder); border-radius: 13px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
+.fs-route { font-family: 'Syne',sans-serif; font-size: 16px; font-weight: 800; color: var(--white); }
+.fs-detail { font-size: 11px; color: var(--muted); margin-top: 3px; }
+.fs-badge { background: var(--skyDim); border: 1px solid var(--skyBorder); border-radius: 18px; padding: 4px 12px; font-size: 11px; font-weight: 700; color: var(--sky); }
+
+.sec-tip { background: rgba(245,158,11,.07); border: 1px solid rgba(245,158,11,.2); border-radius: 11px; padding: 12px 15px; display: flex; gap: 9px; align-items: flex-start; margin-bottom: 18px; }
+.sec-tip i { color: var(--amber); font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+.sec-tip-title { font-family: 'Syne',sans-serif; font-size: 12px; font-weight: 800; color: var(--amber); margin-bottom: 2px; }
+.sec-tip p { font-size: 11px; color: rgba(245,158,11,.75); line-height: 1.6; }
+
+.pf-sec { background: var(--card); border: 1px solid rgba(56,189,248,.1); border-radius: 16px; padding: 18px 20px; margin-bottom: 14px; }
+.pf-sec-title { font-family: 'Syne',sans-serif; font-size: 14px; font-weight: 800; color: var(--white); margin-bottom: 14px; display: flex; align-items: center; gap: 7px; }
+.pf-sec-title i { color: var(--sky); }
+
+/* ITINERARY */
+.itin-row { display: flex; align-items: center; gap: 0; margin-bottom: 11px; }
+.itin-t-blk { text-align: center; flex-shrink: 0; }
+.itin-t { font-family: 'Syne',sans-serif; font-size: 26px; font-weight: 800; color: var(--white); }
+.itin-ap { font-size: 10px; color: var(--muted); margin-top: 2px; letter-spacing: .06em; }
+.itin-line { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 0 16px; gap: 4px; }
+.itin-track { width: 100%; height: 1px; background: linear-gradient(90deg,var(--sky),rgba(56,189,248,.3)); position: relative; }
+.itin-track::after { content:'✈'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:11px; color:var(--sky); background:var(--card); padding:0 3px; }
+.itin-dur { font-size:10px; color:var(--muted); }
+.itin-meta { font-size:11px; color:var(--muted); line-height:1.7; }
+
+/* PAX TABS */
+.pax-tabs { display:flex; gap:7px; margin-bottom:14px; flex-wrap:wrap; }
+.pt-btn { background:transparent; border:1px solid rgba(255,255,255,.08); color:var(--muted); padding:6px 14px; border-radius:18px; font-family:'Nunito',sans-serif; font-size:12px; font-weight:700; cursor:pointer; transition:all .2s; }
+.pt-btn.active { background:var(--skyDim); border-color:var(--sky); color:var(--sky); }
+
+/* PASSENGER FORM FIELDS */
+.pf-grid { display:grid; grid-template-columns:1fr 1fr; gap:11px; }
+.pf-field { display:flex; flex-direction:column; gap:4px; }
+.pf-field label { font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-weight:700; }
+.pf-field input, .pf-field select {
+  background:rgba(56,189,248,.05); border:1px solid rgba(56,189,248,.12);
+  border-radius:9px; padding:10px 11px; color:var(--text);
+  font-family:'Nunito',sans-serif; font-size:13px; font-weight:600;
+  outline:none; transition:all .25s; width:100%; appearance:none;
+}
+.pf-field input:focus, .pf-field select:focus { border-color:var(--sky); box-shadow:0 0 0 3px rgba(56,189,248,.1); }
+.pf-field input::placeholder { color:var(--muted); font-weight:400; }
+.pf-field input.error { border-color:var(--red); background:rgba(239,68,68,.07); }
+.pf-field input.valid { border-color:var(--green); }
+.pf-divider { grid-column:1/-1; height:1px; background:rgba(56,189,248,.08); margin:4px 0; }
+
+/* SEAT MAP */
+.seat-wrap { overflow-x:auto; padding:10px 0; }
+.seat-cabin { display:flex; flex-direction:column; gap:6px; min-width:320px; }
+.seat-row-num { width:22px; font-size:10px; color:var(--muted); text-align:center; flex-shrink:0; }
+.seat-row { display:flex; align-items:center; gap:5px; }
+.seat-aisle { width:16px; flex-shrink:0; }
+.seat-btn { width:28px; height:28px; border-radius:6px; font-size:9px; font-weight:800; cursor:pointer; border:none; font-family:'Nunito',sans-serif; transition:all .2s; }
+.seat-btn.avail { background:rgba(56,189,248,.1); border:1px solid var(--skyBorder); color:var(--sky); }
+.seat-btn.avail:hover { background:var(--sky); color:#000; }
+.seat-btn.taken { background:rgba(255,255,255,.06); color:rgba(255,255,255,.2); cursor:not-allowed; border:1px solid rgba(255,255,255,.05); }
+.seat-btn.chosen { background:var(--sky); color:#000; box-shadow:0 0 10px rgba(56,189,248,.5); }
+.seat-legend { display:flex; gap:14px; margin-top:9px; flex-wrap:wrap; }
+.sl-i { display:flex; align-items:center; gap:5px; font-size:11px; color:var(--muted); }
+.sl-sw { width:14px; height:14px; border-radius:3px; }
+.sl-a { background:rgba(56,189,248,.1); border:1px solid var(--skyBorder); }
+.sl-t { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.05); }
+.sl-s { background:var(--sky); }
+
+/* MEAL */
+.meal-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:8px; }
+.meal-opt { background:rgba(56,189,248,.05); border:1px solid rgba(56,189,248,.1); border-radius:10px; padding:10px 12px; font-size:12px; font-weight:600; color:var(--text); cursor:pointer; transition:all .2s; text-align:center; }
+.meal-opt:hover { border-color:var(--sky); background:var(--skyDim); }
+.meal-opt.selected { background:var(--skyDim); border-color:var(--sky); color:var(--sky); font-weight:800; }
+
+/* SUBMIT ROW */
+.submit-row { display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap; margin-top:8px; }
+
+@media (max-width:600px) {
+  .pf-grid { grid-template-columns:1fr; }
+  .submit-row { flex-direction:column-reverse; }
+  .submit-row a, .submit-row button { width:100%; justify-content:center; }
+}

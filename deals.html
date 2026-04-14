@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explore Flight Deals — SkyWay KOP</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/shared.css">
+<link rel="stylesheet" href="css/index.css">
+<style>
+.deals-page-wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px 60px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="logo-wrap" href="index.html">
+    <div class="logo-ico"><i class="fa-solid fa-plane-departure"></i></div>
+    <div><div class="logo-main">SkyWay ✈ KOP</div><div class="logo-sub">Kolhapur Airport</div></div>
+  </a>
+  <nav class="h-nav">
+    <a class="hn" href="index.html">Home</a>
+    <a class="hn" href="search.html">Search</a>
+    <a class="hn active" href="deals.html">View Deals</a>
+  </nav>
+  <div id="authArea"></div>
+</header>
+
+<!-- HERO -->
+<div class="deals-hero">
+  <div class="apt-badge" style="margin-bottom:16px;">✈ KOP · Exclusive Deals</div>
+  <h1>Explore <span>Flight Deals</span></h1>
+  <p>Season-wise offers on flights from Kolhapur. Click any deal to book instantly at the best price.</p>
+</div>
+
+<!-- FILTER TABS -->
+<div class="deals-filters">
+  <button class="deal-filter-btn active" onclick="filterDeals('all', this)">🌐 All Deals</button>
+  <button class="deal-filter-btn" onclick="filterDeals('summer', this)">☀️ Summer</button>
+  <button class="deal-filter-btn" onclick="filterDeals('winter', this)">❄️ Winter</button>
+  <button class="deal-filter-btn" onclick="filterDeals('festive', this)">🎉 Festive</button>
+  <button class="deal-filter-btn" onclick="filterDeals('monsoon', this)">🌧 Monsoon</button>
+</div>
+
+<div class="deals-page-wrap" id="dealsContainer"></div>
+
+<footer class="site-footer">
+  <div class="fc">© 2026 Chhatrapati Rajaram Maharaj Airport, Kolhapur · SkyWay Booking Portal</div>
+  <div class="fl"><a href="index.html">Home</a><a href="search.html">Search Flights</a><a href="#">Contact</a></div>
+</footer>
+
+<button class="chat-fab" onclick="toggleChat()" title="Chat with Deal AI">
+  <i class="fa-solid fa-comments"></i><span class="cf-badge"></span>
+</button>
+<div id="chatPanel">
+  <div class="chat-hdr">
+    <div class="chat-av">D</div>
+    <div><div class="chat-hn">Deal AI</div><div class="chat-hs">Online</div></div>
+    <button class="chat-cx" onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="chat-msgs" id="chatMsgs">
+    <div class="cm bot">Hi! I'm Deal 👋 Ask me about any of these deals or how to get the best fare!</div>
+  </div>
+  <div class="chat-inp-row">
+    <input class="chat-inp" id="chatInput" placeholder="Ask about deals…">
+    <button class="chat-send" onclick="sendChat()"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+</div>
+
+<div id="loginModal">
+  <div class="lm-box">
+    <button class="lm-close" onclick="closeLoginModal()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="lm-title">Welcome to SkyWay ✈</div>
+    <div class="lm-sub">Login to continue booking</div>
+    <div class="lm-tabs"><button class="lm-tab active" onclick="switchLoginTab('login',this)">Login</button><button class="lm-tab" onclick="switchLoginTab('signup',this)">Sign Up</button></div>
+    <div id="lm-login">
+      <div class="lm-field"><label>Email / Phone</label><input type="text" id="loginEmail" placeholder="user@airport.in"></div>
+      <div class="lm-field"><label>Password</label><input type="password" id="loginPwd" placeholder="••••••••"></div>
+      <div class="lm-error" id="lm-err">Invalid credentials</div>
+      <button class="lm-submit" onclick="doLogin()">Login →</button>
+      <div class="lm-or">— or —</div>
+      <button class="lm-google" onclick="doGoogleSignIn()"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G"> Continue with Google</button>
+    </div>
+    <div id="lm-signup" style="display:none;">
+      <div class="lm-field"><label>Full Name</label><input type="text" id="regName" placeholder="Your Name"></div>
+      <div class="lm-field"><label>Email</label><input type="email" id="regEmail" placeholder="your@email.com"></div>
+      <div class="lm-field"><label>Phone</label><input type="text" id="regPhone" placeholder="+91 99999 99999"></div>
+      <div class="lm-field"><label>Password</label><input type="password" id="regPwd" placeholder="Create password"></div>
+      <button class="lm-submit" onclick="doSignup()">Create Account →</button>
+    </div>
+  </div>
+</div>
+
+<div id="accountModal">
+  <div class="acct-modal-box">
+    <div class="acct-modal-hdr">
+      <div id="acct-modal-title"></div>
+      <button class="acct-modal-close" onclick="closeAccountModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="acct-modal-body"></div>
+  </div>
+</div>
+
+<div id="adminLoginModal">
+  <div class="admin-login-box">
+    <div class="admin-login-ico"><i class="fa-solid fa-user-shield"></i></div>
+    <div class="admin-login-title">Admin Login</div>
+    <div class="admin-login-sub">Enter admin credentials to access the dashboard</div>
+    <div class="admin-login-err" id="adminLoginErr">❌ Invalid credentials. Try admin / admin123</div>
+    <div class="admin-field"><label>Username</label><input type="text" id="adminUser" placeholder="admin"></div>
+    <div class="admin-field"><label>Password</label><input type="password" id="adminPass" placeholder="••••••••"></div>
+    <button class="admin-login-btn" onclick="doAdminLogin()"><i class="fa-solid fa-right-to-bracket"></i> Access Dashboard</button>
+    <div class="admin-login-hint">Demo: admin / admin123</div>
+    <button class="admin-modal-close-btn" onclick="closeAdminLogin()">Cancel</button>
+  </div>
+</div>
+
+<div id="adminDashModal">
+  <div class="admin-dash-box">
+    <div class="admin-dash-hdr">
+      <div class="admin-dash-title"><i class="fa-solid fa-cookie-bite" style="color:#f59e0b"></i> Admin Dashboard — KOP Control Panel</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="adm-version">v4.0 PRO</span>
+        <button class="admin-dash-close" onclick="closeAdminDashboard()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+    <div id="adminDashContent"></div>
+  </div>
+</div>
+
+<div id="toastContainer"></div>
+
+<script src="shared/shared.js"></script>
+<script>
+/* ============================================================
+   deals.js — Inline script for Deals page
+   ============================================================ */
+var ALL_DEALS = [
+  // SUMMER
+  { season:'summer', city:'Goa', emoji:'🌴', desc:'Beach paradise — escape before the crowds', img:'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=400&auto=format&fit=crop', orig:4200, price:1999, save:52, dur:'1h 10m', flight:'S5-804', dep:'09:00', to:'GOI', tag:'☀️ Summer Special', tagClass:'badge-summer deal-season-tag' },
+  { season:'summer', city:'Mumbai', emoji:'🌇', desc:'City of Dreams — summer getaway deals', img:'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=400&auto=format&fit=crop', orig:3500, price:1799, save:49, dur:'1h 05m', flight:'S5-224', dep:'06:15', to:'BOM', tag:'☀️ Summer Special', tagClass:'badge-summer deal-season-tag' },
+  { season:'summer', city:'Bengaluru', emoji:'🌆', desc:'Garden city — cooler summers await', img:'https://images.unsplash.com/photo-1596176530529-78163a4f7af2?w=400&auto=format&fit=crop', orig:2800, price:1499, save:46, dur:'1h 30m', flight:'6E-6414', dep:'07:15', to:'BLR', tag:'☀️ Summer Special', tagClass:'badge-summer deal-season-tag' },
+  // WINTER
+  { season:'winter', city:'Hyderabad', emoji:'🏙', desc:'City of Pearls — perfect winter destination', img:'https://images.unsplash.com/photo-1563448927337-4d09f7e6f596?w=400&auto=format&fit=crop', orig:3100, price:1899, save:39, dur:'1h 15m', flight:'6E-6312', dep:'06:30', to:'HYD', tag:'❄️ Winter Deal', tagClass:'badge-winter deal-season-tag' },
+  { season:'winter', city:'Nagpur', emoji:'🍊', desc:'Orange city — winter harvest season', img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&auto=format&fit=crop', orig:2600, price:1699, save:35, dur:'1h 45m', flight:'S5-316', dep:'08:10', to:'NAG', tag:'❄️ Winter Deal', tagClass:'badge-winter deal-season-tag' },
+  { season:'winter', city:'Navi Mumbai', emoji:'🌃', desc:'New Mumbai — comfortable winter travel', img:'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=400&auto=format&fit=crop', orig:2800, price:1699, save:39, dur:'1h 10m', flight:'6E-6201', dep:'06:00', to:'NMB', tag:'❄️ Winter Deal', tagClass:'badge-winter deal-season-tag' },
+  // FESTIVE
+  { season:'festive', city:'Mumbai', emoji:'🎆', desc:'Diwali in Mumbai — festive lights & celebrations', img:'https://images.unsplash.com/photo-1512417290086-5ef03e56e48d?w=400&auto=format&fit=crop', orig:5500, price:2999, save:45, dur:'1h 05m', flight:'S5-226', dep:'09:30', to:'BOM', tag:'🎉 Festive Offer', tagClass:'badge-festive deal-season-tag' },
+  { season:'festive', city:'Goa', emoji:'🎇', desc:'New Year in Goa — the best party destination', img:'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=400&auto=format&fit=crop', orig:6500, price:3499, save:46, dur:'1h 10m', flight:'S5-806', dep:'11:00', to:'GOI', tag:'🎉 Festive Offer', tagClass:'badge-festive deal-season-tag' },
+  { season:'festive', city:'Hyderabad', emoji:'✨', desc:'Eid celebrations in the City of Pearls', img:'https://images.unsplash.com/photo-1563448927337-4d09f7e6f596?w=400&auto=format&fit=crop', orig:4200, price:2499, save:40, dur:'1h 15m', flight:'6E-6314', dep:'10:05', to:'HYD', tag:'🎉 Festive Offer', tagClass:'badge-festive deal-season-tag' },
+  // MONSOON
+  { season:'monsoon', city:'Goa', emoji:'☔', desc:'Monsoon magic — green Goa at its best', img:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&auto=format&fit=crop', orig:4200, price:1599, save:62, dur:'1h 10m', flight:'S5-804', dep:'09:00', to:'GOI', tag:'🌧 Monsoon Special', tagClass:'badge-monsoon deal-season-tag' },
+  { season:'monsoon', city:'Bengaluru', emoji:'🌿', desc:'Lush greenery & pleasant rains in Bengaluru', img:'https://images.unsplash.com/photo-1596176530529-78163a4f7af2?w=400&auto=format&fit=crop', orig:2800, price:1299, save:54, dur:'1h 30m', flight:'6E-6414', dep:'07:15', to:'BLR', tag:'🌧 Monsoon Special', tagClass:'badge-monsoon deal-season-tag' },
+  { season:'monsoon', city:'Ahmednagar', emoji:'🌾', desc:'Monsoon weekend getaway close to home', img:'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=400&auto=format&fit=crop', orig:1800, price:899, save:50, dur:'0h 55m', flight:'S5-610', dep:'10:45', to:'AHN', tag:'🌧 Monsoon Special', tagClass:'badge-monsoon deal-season-tag' }
+];
+
+var SEASON_INFO = {
+  summer: { emoji: '☀️', label: 'Summer Deals', badge: 'badge-summer', months: 'Apr – Jun 2026' },
+  winter: { emoji: '❄️', label: 'Winter Deals', badge: 'badge-winter', months: 'Nov 2026 – Jan 2027' },
+  festive: { emoji: '🎉', label: 'Festive Season Deals', badge: 'badge-festive', months: 'Oct – Nov 2026 (Diwali/Christmas/New Year)' },
+  monsoon: { emoji: '🌧', label: 'Monsoon Deals', badge: 'badge-monsoon', months: 'Jul – Sep 2026' }
+};
+
+var currentFilter = 'all';
+
+function filterDeals(season, btn) {
+  currentFilter = season;
+  document.querySelectorAll('.deal-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  renderDeals();
+}
+
+function renderDeals() {
+  var container = document.getElementById('dealsContainer');
+  if (!container) return;
+
+  var seasons = currentFilter === 'all' ? ['summer','winter','festive','monsoon'] : [currentFilter];
+  var html = '';
+
+  seasons.forEach(function(season) {
+    var info = SEASON_INFO[season];
+    var deals = ALL_DEALS.filter(function(d) { return d.season === season; });
+    if (!deals.length) return;
+
+    html += '<div class="deals-season-section">';
+    html += '<div class="deals-season-title">' + info.emoji + ' ' + info.label +
+      ' <span class="season-badge ' + info.badge + '">' + info.months + '</span></div>';
+    html += '<div class="deals-grid">';
+
+    deals.forEach(function(d) {
+      html += '<div class="deal-card" onclick="bookThisDeal(\'' + d.to + '\',\'' + d.flight + '\',\'' + d.dep + '\')">' +
+        '<span class="deal-season-tag ' + d.tagClass + '">' + d.tag + '</span>' +
+        '<img class="deal-card-img" src="' + d.img + '" alt="' + d.city + '" loading="lazy">' +
+        '<div class="deal-card-body">' +
+          '<div class="deal-card-city">' + d.emoji + ' ' + d.city + '</div>' +
+          '<div class="deal-card-desc">' + d.desc + '</div>' +
+          '<div class="deal-card-price">' +
+            '<span class="deal-orig">₹' + d.orig.toLocaleString('en-IN') + '</span>' +
+            '<span class="deal-price">₹' + d.price.toLocaleString('en-IN') + '</span>' +
+            '<span class="deal-save">Save ' + d.save + '%</span>' +
+          '</div>' +
+          '<div class="deal-meta">' +
+            '<span><i class="fa-solid fa-clock"></i> ' + d.dur + '</span>' +
+            '<span><i class="fa-solid fa-plane"></i> ' + d.flight + '</span>' +
+            '<span><i class="fa-regular fa-clock"></i> Dep ' + d.dep + '</span>' +
+          '</div>' +
+          '<button class="deal-book-btn">Book This Deal →</button>' +
+        '</div>' +
+      '</div>';
+    });
+
+    html += '</div></div>';
+  });
+
+  container.innerHTML = html;
+}
+
+function bookThisDeal(to, flight, dep) {
+  // safe local storage
+  localStorage.setItem("quickDeal", JSON.stringify({
+    to: to,
+    flight: flight,
+    dep: dep
+  }));
+
+  window.location.href = 'search.html?to=' + to;
+}
+
+document.addEventListener('DOMContentLoaded', renderDeals);
+</script>
+</body>
+</html>

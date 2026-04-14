@@ -1,0 +1,202 @@
+/* ============================================================
+   search.css — Search Flights Page
+   ============================================================ */
+
+.pw { max-width: 1200px; margin: 0 auto; padding: 0 24px 56px; position: relative; z-index: 1; }
+
+/* HERO LABEL */
+.hs-hero { padding: 28px 0 16px; animation: fadeUp .8s ease .1s both; }
+.hs-lbl { display: inline-flex; align-items: center; gap: 6px; background: var(--skyDim); border: 1px solid var(--skyBorder); border-radius: 18px; padding: 4px 12px; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--sky3); margin-bottom: 9px; }
+.hs-h1 { font-family: 'Syne', sans-serif; font-size: clamp(24px,4vw,50px); font-weight: 800; color: var(--white); line-height: 1.04; letter-spacing: -.02em; }
+.hs-h1 em { font-style: italic; color: var(--sky); }
+
+/* SEARCH CARD */
+.sc { background: var(--card); border: 1px solid var(--skyBorder); border-radius: 20px; padding: 22px 24px; backdrop-filter: blur(24px); box-shadow: 0 28px 70px rgba(0,0,0,.5); animation: fadeUp .8s ease .2s both; margin-bottom: 22px; }
+.trip-type { display: flex; gap: 6px; margin-bottom: 16px; }
+.tt-btn { background: transparent; border: 1px solid rgba(255,255,255,.08); color: var(--muted); padding: 6px 14px; border-radius: 18px; font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 700; cursor: pointer; transition: all .25s; }
+.tt-btn:hover { border-color: var(--sky); color: var(--sky); }
+.tt-btn.active { background: linear-gradient(135deg, var(--sky2), #0369a1); border-color: transparent; color: #fff; }
+.irow { display: grid; grid-template-columns: 1fr auto 1fr 1fr 1fr 1fr auto; gap: 10px; align-items: end; }
+.field { display: flex; flex-direction: column; gap: 4px; position: relative; }
+.field label { font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.csw { position: relative; }
+.csel, .std-date, .std-sel {
+  background: rgba(56,189,248,.05); border: 1px solid rgba(56,189,248,.13);
+  border-radius: 9px; padding: 10px 28px 10px 11px;
+  color: var(--text); font-family: 'Nunito', sans-serif;
+  font-size: 13px; font-weight: 600; outline: none;
+  transition: all .25s; width: 100%; appearance: none; cursor: pointer;
+}
+.csel:focus, .std-date:focus { border-color: var(--sky); background: rgba(56,189,248,.08); box-shadow: 0 0 0 3px rgba(56,189,248,.1); }
+.csel option, .std-sel option { background: #0d1f3c; color: var(--text); }
+.csa { position: absolute; right: 9px; top: 50%; transform: translateY(-50%); color: var(--sky); font-size: 10px; pointer-events: none; }
+input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(.5) sepia(1) hue-rotate(180deg); }
+.swap-btn { width: 34px; height: 34px; background: var(--skyDim); border: 1px solid var(--skyBorder); border-radius: 9px; color: var(--sky); cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center; transition: all .2s; flex-shrink: 0; align-self: end; }
+.swap-btn:hover { background: var(--sky); color: #000; }
+.search-btn { background: linear-gradient(135deg, var(--sky), var(--sky2)); color: #000; border: none; padding: 11px 22px; border-radius: 10px; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 800; cursor: pointer; white-space: nowrap; transition: all .3s; display: flex; align-items: center; gap: 6px; align-self: end; }
+.search-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(56,189,248,.4); }
+
+/* PAX PANEL */
+.pax-wrap { position: relative; }
+.pax-display { background: rgba(56,189,248,.05); border: 1px solid rgba(56,189,248,.15); border-radius: 9px; padding: 10px 11px; color: var(--text); font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 8px; transition: all .25s; width: 100%; }
+.pax-display:hover { border-color: var(--sky); }
+.pax-panel { display: none; position: absolute; top: calc(100% + 6px); left: 0; min-width: 240px; z-index: 50; background: var(--navy2); border: 1px solid var(--skyBorder); border-radius: 14px; padding: 14px 16px; box-shadow: 0 20px 50px rgba(0,0,0,.5); }
+.pax-panel.open { display: block; animation: fadeUp .2s ease both; }
+.pax-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.05); }
+.pax-row:last-of-type { border: none; }
+.pax-info .pax-type { font-size: 13px; font-weight: 700; color: var(--text); }
+.pax-info .pax-age { font-size: 11px; color: var(--muted); }
+.pax-counter { display: flex; align-items: center; gap: 10px; }
+.pax-counter button { width: 28px; height: 28px; border-radius: 8px; border: 1px solid var(--skyBorder); background: var(--skyDim); color: var(--sky); cursor: pointer; font-size: 14px; font-weight: 800; transition: all .2s; }
+.pax-counter button:hover { background: var(--sky); color: #000; }
+.pax-counter span { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 800; color: var(--white); min-width: 20px; text-align: center; }
+.pax-special { margin-top: 10px; border-top: 1px solid rgba(255,255,255,.06); padding-top: 10px; }
+.pax-special label { font-size: 11px; color: var(--muted); letter-spacing: .07em; text-transform: uppercase; display: block; margin-bottom: 6px; font-weight: 700; }
+.pax-special select { width: 100%; background: rgba(56,189,248,.05); border: 1px solid rgba(56,189,248,.13); border-radius: 8px; padding: 8px 10px; color: var(--text); font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 600; outline: none; appearance: none; cursor: pointer; }
+.pax-special select option { background: var(--navy2); }
+.pax-done { width: 100%; background: var(--sky); color: #000; border: none; padding: 10px; border-radius: 9px; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 800; cursor: pointer; margin-top: 10px; transition: all .25s; }
+.pax-done:hover { background: var(--sky3); }
+
+/* MULTI CITY */
+.mc-extra { display: none; margin-top: 14px; border-top: 1px solid rgba(255,255,255,.06); padding-top: 14px; }
+.mc-extra.show { display: block; animation: fadeUp .3s ease both; }
+.mc-row { display: flex; gap: 10px; align-items: end; margin-bottom: 10px; flex-wrap: wrap; }
+.mc-add { background: var(--skyDim); border: 1px solid var(--skyBorder); color: var(--sky); padding: 7px 14px; border-radius: 9px; font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 700; cursor: pointer; transition: all .2s; display: inline-flex; align-items: center; gap: 5px; }
+.mc-add:hover { background: var(--sky); color: #000; }
+
+/* MAP */
+.map-section { background: var(--card); border: 1px solid var(--skyBorder); border-radius: 18px; overflow: hidden; margin-bottom: 22px; animation: fadeUp .8s ease .4s both; }
+.map-head { padding: 14px 18px; border-bottom: 1px solid rgba(56,189,248,.1); display: flex; align-items: center; }
+.map-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 800; color: var(--white); }
+#map { height: 340px; }
+.route-info { display: flex; gap: 0; border-top: 1px solid rgba(56,189,248,.1); flex-wrap: wrap; }
+.ri-item { flex: 1; padding: 12px 16px; border-right: 1px solid rgba(56,189,248,.1); min-width: 100px; }
+.ri-item:last-child { border-right: none; }
+.ri-lbl { font-size: 9px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+.ri-val { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800; color: var(--sky); }
+
+/* PARTNER AIRLINES */
+.pa-sec { background: var(--card); border: 1px solid rgba(56,189,248,.1); border-radius: 16px; padding: 18px 20px; margin-bottom: 22px; animation: fadeUp .8s ease .5s both; }
+.pa-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800; color: var(--white); margin-bottom: 13px; }
+.pa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; }
+.pa-card { display: flex; align-items: center; gap: 13px; background: rgba(56,189,248,.05); border: 1px solid rgba(56,189,248,.12); border-radius: 11px; padding: 13px; cursor: pointer; transition: all .25s; }
+.pa-card:hover { border-color: var(--skyBorder); background: var(--skyDim); transform: translateY(-2px); }
+.pa-logo { width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 900; color: #fff; flex-shrink: 0; }
+.pa-name { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800; color: var(--white); margin-bottom: 3px; }
+.pa-info { font-size: 11px; color: var(--muted); line-height: 1.5; }
+.info-note { background: rgba(56,189,248,.05); border: 1px solid var(--skyBorder); border-radius: 10px; padding: 11px 14px; margin-top: 11px; font-size: 11px; color: var(--muted); }
+
+/* STATS */
+.sr { display: grid; grid-template-columns: repeat(3,1fr); gap: 11px; margin-bottom: 22px; animation: fadeUp .8s ease .6s both; }
+.stat-c { background: var(--card); border: 1px solid var(--skyBorder); border-radius: 12px; padding: 16px; text-align: center; }
+.stat-l { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
+.stat-v { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; color: var(--sky); }
+.stat-v span { font-size: 12px; color: var(--muted); }
+
+/* AIRLINE INFO PANEL */
+#airlinePanel { display: none; position: fixed; inset: 0; z-index: 350; background: rgba(4,8,15,.82); backdrop-filter: blur(8px); }
+#airlinePanel.active { display: flex; align-items: center; justify-content: center; animation: fadeIn .3s ease both; }
+.ai-box { background: var(--navy); border: 1px solid var(--skyBorder); border-radius: 20px; padding: 28px; max-width: 520px; width: 92%; position: relative; animation: fadeUp .35s ease both; max-height: 88vh; overflow-y: auto; }
+.ai-close { position: absolute; top: 13px; right: 13px; width: 28px; height: 28px; background: rgba(255,255,255,.06); border: none; border-radius: 50%; cursor: pointer; color: var(--muted); font-size: 12px; display: flex; align-items: center; justify-content: center; }
+.ai-logo-badge { width: 58px; height: 58px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; font-family: 'Syne', sans-serif; color: #fff; margin-bottom: 13px; }
+.ai-name { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--white); margin-bottom: 3px; }
+.ai-sub { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+.ai-stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 9px; margin-bottom: 14px; }
+.ai-stat { background: var(--skyDim); border: 1px solid var(--skyBorder); border-radius: 9px; padding: 10px; text-align: center; }
+.ai-sv { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: var(--sky); }
+.ai-sl { font-size: 9px; color: var(--muted); margin-top: 2px; }
+.ai-routes { display: flex; flex-direction: column; gap: 7px; }
+.ai-route { background: rgba(56,189,248,.06); border: 1px solid rgba(56,189,248,.12); border-radius: 9px; padding: 10px 13px; display: flex; align-items: center; justify-content: space-between; }
+.ai-rn { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; color: var(--white); }
+.ai-rd { font-size: 10px; color: var(--muted); margin-top: 2px; }
+.ai-rp { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800; color: var(--sky); }
+.ai-book { background: linear-gradient(135deg, var(--sky), var(--sky2)); color: #000; border: none; padding: 8px 18px; border-radius: 8px; font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 14px; transition: all .25s; }
+.ai-book:hover { transform: translateY(-2px); box-shadow: 0 7px 18px rgba(56,189,248,.4); }
+
+@media (max-width: 900px) {
+  .irow { grid-template-columns: 1fr 1fr; }
+  .swap-btn { display: none; }
+  .pa-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .irow { grid-template-columns: 1fr; }
+  .sr { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   PAX PANEL FIXES — Bigger panel, properly visible above map
+   ============================================================ */
+.pax-wrap { position: relative; }
+.pax-panel {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 8px) !important;  /* open UPWARD so it doesn't go below map */
+  top: auto !important;
+  left: 0;
+  min-width: 300px;
+  max-width: 340px;
+  z-index: 200 !important;
+  background: var(--navy2);
+  border: 1px solid var(--skyBorder);
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 -12px 40px rgba(0,0,0,.6), 0 20px 50px rgba(0,0,0,.5);
+  max-height: 70vh;
+  overflow-y: auto;
+}
+.pax-panel.open { display: block; animation: fadeUp .2s ease both; }
+.pax-panel-title {
+  font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .1em; color: var(--sky3);
+  margin-bottom: 10px; padding-bottom: 8px;
+  border-bottom: 1px solid rgba(56,189,248,.12);
+}
+.pax-panel-divider {
+  font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .08em; color: #f59e0b;
+  margin: 10px 0 6px; padding: 6px 0 6px;
+  border-top: 1px dashed rgba(245,158,11,.2);
+  display: flex; align-items: center; gap: 8px;
+}
+.pax-disc-tag {
+  background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.2);
+  color: #f59e0b; border-radius: 10px; padding: 2px 7px; font-size: 9px; font-weight: 700;
+}
+.pax-type { display: flex; align-items: center; gap: 6px; }
+.pax-type i { color: var(--sky); font-size: 12px; width: 14px; text-align: center; }
+.pax-age { font-size: 10px; color: var(--muted); margin-top: 2px; padding-left: 20px; }
+.pax-counter button {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: rgba(56,189,248,.1); border: 1px solid rgba(56,189,248,.2);
+  color: var(--sky); cursor: pointer; font-size: 14px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s; padding: 0; line-height: 1;
+}
+.pax-counter button:hover { background: rgba(56,189,248,.2); }
+.pax-counter span {
+  min-width: 22px; text-align: center; font-family: 'Syne',sans-serif;
+  font-size: 14px; font-weight: 800; color: var(--white);
+}
+.pax-special { margin-top: 10px; }
+.pax-special label {
+  display: block; font-size: 10px; color: var(--sky3); font-weight: 700;
+  text-transform: uppercase; letter-spacing: .07em; margin-bottom: 5px;
+}
+.pax-special select {
+  width: 100%; background: rgba(56,189,248,.05); border: 1px solid rgba(56,189,248,.18);
+  border-radius: 9px; padding: 8px 10px; color: var(--white);
+  font-family: 'Nunito',sans-serif; font-size: 12px; outline: none;
+}
+.pax-done {
+  width: 100%; margin-top: 12px; padding: 9px;
+  background: linear-gradient(135deg,var(--sky),var(--sky2));
+  border: none; border-radius: 10px; cursor: pointer;
+  color: #000; font-family: 'Syne',sans-serif; font-size: 12px; font-weight: 800;
+}
+
+/* ============================================================
+   LEAFLET LAYER CONTROL — ensure it renders above map UI
+   ============================================================ */
+.leaflet-control-layers { background: rgba(2,8,16,.85) !important; border: 1px solid rgba(56,189,248,.2) !important; border-radius: 10px !important; color: var(--text) !important; font-size: 12px !important; }
+.leaflet-control-layers-list { color: #e2e8f0 !important; }
+.leaflet-control-layers-selector { margin-right: 6px; }

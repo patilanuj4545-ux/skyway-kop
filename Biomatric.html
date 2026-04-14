@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biometric Verification — SkyWay KOP</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/shared.css">
+<link rel="stylesheet" href="css/biometric.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="logo-wrap" href="index.html"><div class="logo-ico"><i class="fa-solid fa-plane-departure"></i></div><div><div class="logo-main">SkyWay ✈ KOP</div><div class="logo-sub">Kolhapur Airport</div></div></a>
+  <nav class="h-nav"><a class="hn" href="index.html">Home</a><a class="hn" href="search.html">Search</a><a class="hn" href="deals.html">View Deals</a></nav>
+  <div id="authArea"></div>
+</header>
+
+<div class="bio-wrap">
+  <div class="pf-head" style="margin-bottom:12px;">
+    <a class="back-btn" href="passenger.html"><i class="fa-solid fa-arrow-left"></i></a>
+    <div><h2>Biometric Verification</h2><p>Quick identity check — takes under 10 seconds</p></div>
+  </div>
+  <div class="steps" style="margin-bottom:18px;">
+    <div class="step done"><div class="step-n">✓</div><span class="step-lbl">Search</span></div>
+    <div class="step-line done"></div>
+    <div class="step done"><div class="step-n">✓</div><span class="step-lbl">Select</span></div>
+    <div class="step-line done"></div>
+    <div class="step done"><div class="step-n">✓</div><span class="step-lbl">Passenger</span></div>
+    <div class="step-line done"></div>
+    <div class="step active"><div class="step-n">🔐</div><span class="step-lbl">Biometric</span></div>
+    <div class="step-line"></div>
+    <div class="step idle"><div class="step-n">5</div><span class="step-lbl">Payment</span></div>
+  </div>
+
+  <div class="bio-cards">
+    <!-- FACE RECOGNITION -->
+    <div class="bio-card" id="bioFaceCard">
+      <div class="bio-card-title"><i class="fa-solid fa-face-smile" style="color:var(--sky);margin-right:6px;"></i> Face Recognition</div>
+      <div class="bio-card-sub">Hold still while we verify your identity</div>
+      <div class="face-scan-box" id="faceScanBox">
+        <div class="face-scan-placeholder" id="faceScanPlaceholder">👤</div>
+        <video id="faceVideo" class="face-scan-video" style="display:none;" autoplay muted playsinline></video>
+        <div class="face-corners" id="faceCorners" style="display:none;">
+          <div class="fc-tl"></div><div class="fc-tr"></div>
+          <div class="fc-bl"></div><div class="fc-br"></div>
+          <div class="face-sweep"></div>
+        </div>
+      </div>
+      <div class="bio-status" id="faceStatus">Tap to activate camera</div>
+      <button class="bio-btn" id="faceStartBtn" onclick="startBiometric()"><i class="fa-solid fa-camera"></i> Scan Face</button>
+      <br>
+      <button class="bio-btn skip" onclick="skipBioFace()">Skip (no camera)</button>
+    </div>
+
+    <!-- FINGERPRINT -->
+    <div class="bio-card" id="bioFpCard" style="opacity:.5;pointer-events:none;">
+      <div class="bio-card-title"><i class="fa-solid fa-fingerprint" style="color:var(--sky);margin-right:6px;"></i> Fingerprint Scan</div>
+      <div class="bio-card-sub">Tap the fingerprint icon to scan</div>
+      <div class="fp-wrap">
+        <i class="fa-solid fa-fingerprint fp-icon" id="fpIcon" onclick="startFpScan()"></i>
+      </div>
+      <div class="fp-prog-bar"><div class="fp-prog-fill" id="fpProgFill"></div></div>
+      <div class="bio-status" id="fpStatus">Complete face scan first</div>
+      <button class="bio-btn skip" onclick="skipAllBio()">Skip All</button>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:22px;">
+    <button class="bio-proceed" id="bioProceedBtn" onclick="goToPayment()">
+      <i class="fa-solid fa-arrow-right"></i> Proceed to Payment
+    </button>
+  </div>
+</div>
+
+<footer class="site-footer"><div class="fc">© 2026 Chhatrapati Rajaram Maharaj Airport, Kolhapur</div></footer>
+
+<!-- ACCOUNT POPUP MODAL -->
+<div id="accountModal">
+  <div class="acct-modal-box">
+    <div class="acct-modal-hdr">
+      <div id="acct-modal-title"></div>
+      <button class="acct-modal-close" onclick="closeAccountModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="acct-modal-body"></div>
+  </div>
+</div>
+<!-- ADMIN LOGIN MODAL -->
+<div id="adminLoginModal">
+  <div class="admin-login-box">
+    <div class="admin-login-ico"><i class="fa-solid fa-user-shield"></i></div>
+    <div class="admin-login-title">Admin Login</div>
+    <div class="admin-login-sub">Enter admin credentials</div>
+    <div class="admin-login-err" id="adminLoginErr">Invalid credentials. Try admin / admin123</div>
+    <div class="admin-field"><label>Username</label><input type="text" id="adminUser" placeholder="admin"></div>
+    <div class="admin-field"><label>Password</label><input type="password" id="adminPass" placeholder="••••••••"></div>
+    <button class="admin-login-btn" onclick="doAdminLogin()">Access Dashboard</button>
+    <div class="admin-login-hint">Demo: admin / admin123</div>
+    <button class="admin-modal-close-btn" onclick="closeAdminLogin()">Cancel</button>
+  </div>
+</div>
+<!-- ADMIN DASHBOARD MODAL -->
+<div id="adminDashModal">
+  <div class="admin-dash-box">
+    <div class="admin-dash-hdr">
+      <div class="admin-dash-title"><i class="fa-solid fa-cookie-bite" style="color:#f59e0b"></i> Admin Dashboard — KOP Control Panel</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="adm-version">v4.0 PRO</span>
+        <button class="admin-dash-close" onclick="closeAdminDashboard()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+    <div id="adminDashContent"></div>
+  </div>
+</div>
+<div id="toastContainer"></div>
+<script src="js/shared.js"></script>
+<script src="js/biometric.js"></script>
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search Flights — SkyWay KOP</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<link rel="stylesheet" href="css/shared.css">
+<link rel="stylesheet" href="css/search.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a class="logo-wrap" href="index.html">
+    <div class="logo-ico"><i class="fa-solid fa-plane-departure"></i></div>
+    <div><div class="logo-main">SkyWay ✈ KOP</div><div class="logo-sub">Kolhapur Airport</div></div>
+  </a>
+  <nav class="h-nav">
+    <a class="hn" href="index.html">Home</a>
+    <a class="hn active" href="search.html">Search</a>
+    <a class="hn" href="deals.html">View Deals</a>
+  </nav>
+  <div id="authArea"></div>
+</header>
+
+<div class="pw">
+  <div class="hs-hero">
+    <div class="hs-lbl"><i class="fa-solid fa-plane-departure"></i> Book Your Flight</div>
+    <h1 class="hs-h1">Fly from <em>Kolhapur</em> to the World</h1>
+    <p style="font-size:12px;color:var(--muted);margin-top:7px;">Only 2 airlines operate from KOP: IndiGo &amp; Star Air. We show you all real fares.</p>
+  </div>
+
+  <!-- SEARCH CARD -->
+  <div class="sc">
+    <div class="trip-type">
+      <button class="tt-btn active" onclick="setTrip('ow',this)">One Way</button>
+      <button class="tt-btn" onclick="setTrip('rt',this)">Round Trip</button>
+      <button class="tt-btn" onclick="setTrip('mc',this)">Multi City</button>
+    </div>
+    <div class="irow">
+      <div class="field">
+        <label>From</label>
+        <div class="csw">
+          <select class="csel" id="fromCity"><option value="KOP">🛫 Kolhapur (KOP)</option></select>
+          <span class="csa"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+      </div>
+      <button class="swap-btn" title="Origin fixed to Kolhapur"><i class="fa-solid fa-arrow-right-arrow-left"></i></button>
+      <div class="field">
+        <label>To</label>
+        <div class="csw">
+          <select class="csel" id="toCity" onchange="updateMap()">
+            <option value="">Select Destination</option>
+            <optgroup label="✈ via IndiGo (6E)">
+              <option value="HYD">Hyderabad (HYD)</option>
+              <option value="BLR">Bengaluru (BLR)</option>
+              <option value="NMB">Navi Mumbai (NMB) — from Mar 29</option>
+            </optgroup>
+            <optgroup label="⭐ via Star Air (S5)">
+              <option value="BOM">Mumbai (BOM)</option>
+              <option value="NAG">Nagpur (NAG)</option>
+              <option value="GOI">Goa (GOI)</option>
+              <option value="AHN">Ahmednagar (AHN)</option>
+              <option value="HYD2">Hyderabad (HYD) via S5</option>
+              <option value="BLR2">Bengaluru (BLR) via S5</option>
+            </optgroup>
+          </select>
+          <span class="csa"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+      </div>
+      <div class="field">
+        <label>Departure</label>
+        <input type="date" class="std-date" id="depDate">
+      </div>
+      <div class="field" id="returnDateWrap">
+        <label>Return</label>
+        <input type="date" class="std-date" id="retDate" style="opacity:.4;pointer-events:none;">
+      </div>
+      <div class="field">
+        <label>Passengers &amp; Class</label>
+        <div class="pax-wrap">
+          <div class="pax-display" id="paxDisplay" onclick="togglePaxPanel()">
+            <span id="paxLabel">1 Adult · Economy</span>
+            <i class="fa-solid fa-chevron-down" style="font-size:10px;color:var(--muted);"></i>
+          </div>
+          <div class="pax-panel" id="paxPanel">
+            <div class="pax-panel-title">Passengers</div>
+            <div class="pax-row">
+              <div class="pax-info"><div class="pax-type"><i class="fa-solid fa-person"></i> Adults</div><div class="pax-age">12+ years</div></div>
+              <div class="pax-counter">
+                <button onclick="changePax('a',-1)">−</button>
+                <span id="paxA">1</span>
+                <button onclick="changePax('a',1)">+</button>
+              </div>
+            </div>
+            <div class="pax-row">
+              <div class="pax-info"><div class="pax-type"><i class="fa-solid fa-child"></i> Children</div><div class="pax-age">2–11 years</div></div>
+              <div class="pax-counter">
+                <button onclick="changePax('c',-1)">−</button>
+                <span id="paxC">0</span>
+                <button onclick="changePax('c',1)">+</button>
+              </div>
+            </div>
+            <div class="pax-row">
+              <div class="pax-info"><div class="pax-type"><i class="fa-solid fa-baby"></i> Infants</div><div class="pax-age">Under 2</div></div>
+              <div class="pax-counter">
+                <button onclick="changePax('i',-1)">−</button>
+                <span id="paxI">0</span>
+                <button onclick="changePax('i',1)">+</button>
+              </div>
+            </div>
+            <div class="pax-panel-divider">Special Categories <span class="pax-disc-tag">Discounts Apply</span></div>
+            <div class="pax-row">
+              <div class="pax-info"><div class="pax-type"><i class="fa-solid fa-shield-halved"></i> Armed Forces</div><div class="pax-age">Valid ID required · 25% off</div></div>
+              <div class="pax-counter">
+                <button onclick="changePax('af',-1)">−</button>
+                <span id="paxAF">0</span>
+                <button onclick="changePax('af',1)">+</button>
+              </div>
+            </div>
+            <div class="pax-row">
+              <div class="pax-info"><div class="pax-type"><i class="fa-solid fa-graduation-cap"></i> Student</div><div class="pax-age">Valid Student ID · 15% off</div></div>
+              <div class="pax-counter">
+                <button onclick="changePax('st',-1)">−</button>
+                <span id="paxST">0</span>
+                <button onclick="changePax('st',1)">+</button>
+              </div>
+            </div>
+            <div class="pax-row">
+              <div class="pax-info"><div class="pax-type"><i class="fa-solid fa-stethoscope"></i> Doctor</div><div class="pax-age">Valid MCI Registration · 20% off</div></div>
+              <div class="pax-counter">
+                <button onclick="changePax('dr',-1)">−</button>
+                <span id="paxDR">0</span>
+                <button onclick="changePax('dr',1)">+</button>
+              </div>
+            </div>
+            <div class="pax-row">
+              <div class="pax-info"><div class="pax-type"><i class="fa-solid fa-user-nurse"></i> Nurse</div><div class="pax-age">Valid INC Registration · 20% off</div></div>
+              <div class="pax-counter">
+                <button onclick="changePax('nu',-1)">−</button>
+                <span id="paxNU">0</span>
+                <button onclick="changePax('nu',1)">+</button>
+              </div>
+            </div>
+            <div class="pax-row">
+              <div class="pax-info"><div class="pax-type"><i class="fa-solid fa-users"></i> Others</div><div class="pax-age">Senior Citizen / Differently Abled</div></div>
+              <div class="pax-counter">
+                <button onclick="changePax('ot',-1)">−</button>
+                <span id="paxOT">0</span>
+                <button onclick="changePax('ot',1)">+</button>
+              </div>
+            </div>
+            <div class="pax-special">
+              <label>Cabin Class</label>
+              <select id="cabinClass">
+                <option value="Economy">Economy</option>
+                <option value="Business">Business</option>
+                <option value="First Class">First Class</option>
+              </select>
+            </div>
+            <button class="pax-done" onclick="closePaxPanel()">Done ✓</button>
+          </div>
+        </div>
+      </div>
+      <button class="search-btn" onclick="doSearch()">
+        <i class="fa-solid fa-magnifying-glass"></i> Search
+      </button>
+    </div>
+    <!-- Multi city extra rows -->
+    <div class="mc-extra" id="mcExtra">
+      <div id="mcRows"></div>
+      <button class="mc-add" onclick="addMcRow()"><i class="fa-solid fa-plus"></i> Add City</button>
+    </div>
+  </div>
+
+  <!-- MAP -->
+  <div class="map-section">
+    <div class="map-head">
+      <div class="map-title"><i class="fa-solid fa-map-location-dot" style="color:var(--sky);margin-right:7px;"></i>Route Map</div>
+    </div>
+    <div id="map"></div>
+    <div class="route-info" id="routeInfo" style="display:none;">
+      <div class="ri-item"><span class="ri-lbl">Distance</span><span class="ri-val" id="ri-dist">—</span></div>
+      <div class="ri-item"><span class="ri-lbl">Est. Flight Time</span><span class="ri-val" id="ri-dur">—</span></div>
+      <div class="ri-item"><span class="ri-lbl">Route Code</span><span class="ri-val" id="ri-code">—</span></div>
+      <div class="ri-item"><span class="ri-lbl">Best Season</span><span class="ri-val" id="ri-season">—</span></div>
+    </div>
+  </div>
+
+  <!-- PARTNER AIRLINES -->
+  <div class="pa-sec">
+    <div class="pa-title">Operating Airlines from Kolhapur</div>
+    <div class="pa-grid">
+      <div class="pa-card" onclick="showAirlineInfo('indigo')">
+        <div class="pa-logo" style="background:linear-gradient(135deg,#1d4ed8,#1e40af);">6E</div>
+        <div><div class="pa-name">IndiGo</div><div class="pa-info">India's largest airline · 35+ flights/day<br>Routes: HYD · BLR · NMB (from Mar 29)<br>Fare from ₹1,699 · Economy &amp; Business</div></div>
+      </div>
+      <div class="pa-card" onclick="showAirlineInfo('starair')">
+        <div class="pa-logo" style="background:linear-gradient(135deg,#dc2626,#b91c1c);">S5</div>
+        <div><div class="pa-name">Star Air</div><div class="pa-info">Regional premium airline · 40+ flights/day<br>Routes: BOM · NAG · HYD · AHN · BLR<br>Fare from ₹1,899 · Economy &amp; Business</div></div>
+      </div>
+    </div>
+    <div class="info-note"><i class="fa-solid fa-circle-info" style="color:var(--sky);margin-right:6px;"></i>Only Star Air &amp; IndiGo currently operate from Kolhapur. Runway expansion to 2,300m will open new routes in late 2026.</div>
+  </div>
+
+  <!-- STATS -->
+  <div class="sr">
+    <div class="stat-c"><div class="stat-l">Daily Flights</div><div class="stat-v">70–80<span>/day</span></div></div>
+    <div class="stat-c"><div class="stat-l">Airlines</div><div class="stat-v">2<span> carriers</span></div></div>
+    <div class="stat-c"><div class="stat-l">Destinations</div><div class="stat-v">6+<span> cities</span></div></div>
+  </div>
+</div>
+
+<!-- AIRLINE INFO PANEL -->
+<div id="airlinePanel">
+  <div class="ai-box">
+    <button class="ai-close" onclick="document.getElementById('airlinePanel').classList.remove('active')"><i class="fa-solid fa-xmark"></i></button>
+    <div class="ai-logo-badge" id="ai-logo-badge"></div>
+    <div class="ai-name" id="ai-name"></div>
+    <div class="ai-sub" id="ai-sub"></div>
+    <div class="ai-stats-row" id="ai-stats-row"></div>
+    <div class="ai-routes" id="ai-routes"></div>
+    <button class="ai-book" onclick="document.getElementById('airlinePanel').classList.remove('active')">Book a Flight →</button>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="fc">© 2026 Chhatrapati Rajaram Maharaj Airport, Kolhapur · SkyWay Booking Portal</div>
+  <div class="fl"><a href="index.html">Home</a><a href="#">Terms</a><a href="#">Contact</a></div>
+</footer>
+
+<button class="chat-fab" onclick="toggleChat()"><i class="fa-solid fa-comments"></i><span class="cf-badge"></span></button>
+<div id="chatPanel">
+  <div class="chat-hdr"><div class="chat-av">D</div><div><div class="chat-hn">Deal AI</div><div class="chat-hs">Online</div></div><button class="chat-cx" onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></button></div>
+  <div class="chat-msgs" id="chatMsgs"><div class="cm bot">Hi! I'm Deal 👋 Ask me about flights, fares or routes from Kolhapur!</div></div>
+  <div class="chat-inp-row"><input class="chat-inp" id="chatInput" placeholder="Type a message…"><button class="chat-send" onclick="sendChat()"><i class="fa-solid fa-paper-plane"></i></button></div>
+</div>
+
+<div id="loginModal">
+  <div class="lm-box">
+    <button class="lm-close" onclick="closeLoginModal()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="lm-title">Welcome to SkyWay ✈</div>
+    <div class="lm-sub">Login to continue booking</div>
+    <div class="lm-tabs"><button class="lm-tab active" onclick="switchLoginTab('login',this)">Login</button><button class="lm-tab" onclick="switchLoginTab('signup',this)">Sign Up</button></div>
+    <div id="lm-login">
+      <div class="lm-field"><label>Email / Phone</label><input type="text" id="loginEmail" placeholder="user@airport.in"></div>
+      <div class="lm-field"><label>Password</label><input type="password" id="loginPwd" placeholder="••••••••"></div>
+      <div class="lm-error" id="lm-err">Invalid credentials</div>
+      <button class="lm-submit" onclick="doLogin()">Login →</button>
+      <div style="font-size:10px;color:var(--muted);margin-top:7px;text-align:center;">Demo: user@airport.in / 12345</div>
+      <div class="lm-or">— or —</div>
+      <button class="lm-google" onclick="doGoogleSignIn()"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G"> Continue with Google</button>
+    </div>
+    <div id="lm-signup" style="display:none;">
+      <div class="lm-field"><label>Full Name</label><input type="text" id="regName" placeholder="Your Name"></div>
+      <div class="lm-field"><label>Email</label><input type="email" id="regEmail" placeholder="your@email.com"></div>
+      <div class="lm-field"><label>Phone</label><input type="text" id="regPhone" placeholder="+91 99999 99999"></div>
+      <div class="lm-field"><label>Password</label><input type="password" id="regPwd" placeholder="Create password"></div>
+      <button class="lm-submit" onclick="doSignup()">Create Account →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ACCOUNT POPUP MODAL -->
+<div id="accountModal">
+  <div class="acct-modal-box">
+    <div class="acct-modal-hdr">
+      <div id="acct-modal-title"></div>
+      <button class="acct-modal-close" onclick="closeAccountModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="acct-modal-body"></div>
+  </div>
+</div>
+<!-- ADMIN LOGIN MODAL -->
+<div id="adminLoginModal">
+  <div class="admin-login-box">
+    <div class="admin-login-ico"><i class="fa-solid fa-user-shield"></i></div>
+    <div class="admin-login-title">Admin Login</div>
+    <div class="admin-login-sub">Enter admin credentials to access the dashboard</div>
+    <div class="admin-login-err" id="adminLoginErr">❌ Invalid credentials. Try admin / admin123</div>
+    <div class="admin-field"><label>Username</label><input type="text" id="adminUser" placeholder="admin"></div>
+    <div class="admin-field"><label>Password</label><input type="password" id="adminPass" placeholder="••••••••"></div>
+    <button class="admin-login-btn" onclick="doAdminLogin()"><i class="fa-solid fa-right-to-bracket"></i> Access Dashboard</button>
+    <div class="admin-login-hint">Demo: admin / admin123</div>
+    <button class="admin-modal-close-btn" onclick="closeAdminLogin()">Cancel</button>
+  </div>
+</div>
+<!-- ADMIN DASHBOARD MODAL -->
+<div id="adminDashModal">
+  <div class="admin-dash-box">
+    <div class="admin-dash-hdr">
+      <div class="admin-dash-title"><i class="fa-solid fa-cookie-bite" style="color:#f59e0b"></i> Admin Dashboard — KOP Control Panel</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="adm-version">v4.0 PRO</span>
+        <button class="admin-dash-close" onclick="closeAdminDashboard()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+    <div id="adminDashContent"></div>
+  </div>
+</div>
+<div id="toastContainer"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="js/shared.js"></script>
+<script src="js/search.js"></script>
+</body>
+</html>
