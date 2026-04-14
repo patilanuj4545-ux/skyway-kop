@@ -10,8 +10,9 @@ A web-based flight booking system developed as a BCA final year project.
 - Boarding pass generation
 
 ## 🛠️ Technologies Used
-- HTML5, CSS3, JavaScript
-- PHP, MySQL
+- Frontend: HTML5, CSS3, JavaScript
+- Backend: PHP
+- Database: MySQL
 
 ## 📂 Project Structure
 - Frontend: HTML, CSS, JS
